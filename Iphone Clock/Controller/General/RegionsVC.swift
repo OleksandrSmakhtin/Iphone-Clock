@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  RegionsVCViewController.swift
 //  Iphone Clock
 //
 //  Created by Oleksandr Smakhtin on 31.01.2023.
@@ -7,13 +7,13 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class RegionsVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-    }
 
+        view.backgroundColor = .systemBackground
+    }
+    
 
 }
-

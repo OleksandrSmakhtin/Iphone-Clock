@@ -9,21 +9,33 @@
 /* Begin PBXBuildFile section */
 		4441E2EB298950CD00D6A3F1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4441E2EA298950CD00D6A3F1 /* AppDelegate.swift */; };
 		4441E2ED298950CD00D6A3F1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4441E2EC298950CD00D6A3F1 /* SceneDelegate.swift */; };
-		4441E2EF298950CD00D6A3F1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4441E2EE298950CD00D6A3F1 /* ViewController.swift */; };
-		4441E2F2298950CD00D6A3F1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4441E2F0298950CD00D6A3F1 /* Main.storyboard */; };
 		4441E2F4298950CE00D6A3F1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4441E2F3298950CE00D6A3F1 /* Assets.xcassets */; };
 		4441E2F7298950CE00D6A3F1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4441E2F5298950CE00D6A3F1 /* LaunchScreen.storyboard */; };
+		4441E2FF2989518500D6A3F1 /* TabBarC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4441E2FE2989518500D6A3F1 /* TabBarC.swift */; };
+		4441E301298952E100D6A3F1 /* WorldTimeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4441E300298952E100D6A3F1 /* WorldTimeVC.swift */; };
+		4441E303298952F100D6A3F1 /* AlarmVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4441E302298952F100D6A3F1 /* AlarmVC.swift */; };
+		4441E3052989532300D6A3F1 /* StopWatchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4441E3042989532300D6A3F1 /* StopWatchVC.swift */; };
+		4441E3072989534400D6A3F1 /* TimerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4441E3062989534400D6A3F1 /* TimerVC.swift */; };
+		4441E30C298958C700D6A3F1 /* WorldTimeTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4441E30B298958C700D6A3F1 /* WorldTimeTableCell.swift */; };
+		4441E30E29895E7300D6A3F1 /* WorldTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4441E30D29895E7300D6A3F1 /* WorldTime.swift */; };
+		4441E31029896F4100D6A3F1 /* RegionsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4441E30F29896F4100D6A3F1 /* RegionsVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		4441E2E7298950CD00D6A3F1 /* Iphone Clock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Iphone Clock.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4441E2EA298950CD00D6A3F1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4441E2EC298950CD00D6A3F1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		4441E2EE298950CD00D6A3F1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		4441E2F1298950CD00D6A3F1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4441E2F3298950CE00D6A3F1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4441E2F6298950CE00D6A3F1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4441E2F8298950CE00D6A3F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4441E2FE2989518500D6A3F1 /* TabBarC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarC.swift; sourceTree = "<group>"; };
+		4441E300298952E100D6A3F1 /* WorldTimeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldTimeVC.swift; sourceTree = "<group>"; };
+		4441E302298952F100D6A3F1 /* AlarmVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmVC.swift; sourceTree = "<group>"; };
+		4441E3042989532300D6A3F1 /* StopWatchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopWatchVC.swift; sourceTree = "<group>"; };
+		4441E3062989534400D6A3F1 /* TimerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerVC.swift; sourceTree = "<group>"; };
+		4441E30B298958C700D6A3F1 /* WorldTimeTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldTimeTableCell.swift; sourceTree = "<group>"; };
+		4441E30D29895E7300D6A3F1 /* WorldTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldTime.swift; sourceTree = "<group>"; };
+		4441E30F29896F4100D6A3F1 /* RegionsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionsVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +68,61 @@
 		4441E2E9298950CD00D6A3F1 /* Iphone Clock */ = {
 			isa = PBXGroup;
 			children = (
+				4441E30A2989589000D6A3F1 /* Model */,
+				4441E3092989588900D6A3F1 /* View */,
+				4441E3082989587E00D6A3F1 /* Controller */,
 				4441E2EA298950CD00D6A3F1 /* AppDelegate.swift */,
 				4441E2EC298950CD00D6A3F1 /* SceneDelegate.swift */,
-				4441E2EE298950CD00D6A3F1 /* ViewController.swift */,
-				4441E2F0298950CD00D6A3F1 /* Main.storyboard */,
 				4441E2F3298950CE00D6A3F1 /* Assets.xcassets */,
 				4441E2F5298950CE00D6A3F1 /* LaunchScreen.storyboard */,
 				4441E2F8298950CE00D6A3F1 /* Info.plist */,
 			);
 			path = "Iphone Clock";
+			sourceTree = "<group>";
+		};
+		4441E3082989587E00D6A3F1 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				4441E31229896F6F00D6A3F1 /* Core */,
+				4441E31129896F6100D6A3F1 /* General */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		4441E3092989588900D6A3F1 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				4441E30B298958C700D6A3F1 /* WorldTimeTableCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		4441E30A2989589000D6A3F1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4441E30D29895E7300D6A3F1 /* WorldTime.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		4441E31129896F6100D6A3F1 /* General */ = {
+			isa = PBXGroup;
+			children = (
+				4441E30F29896F4100D6A3F1 /* RegionsVC.swift */,
+			);
+			path = General;
+			sourceTree = "<group>";
+		};
+		4441E31229896F6F00D6A3F1 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				4441E2FE2989518500D6A3F1 /* TabBarC.swift */,
+				4441E300298952E100D6A3F1 /* WorldTimeVC.swift */,
+				4441E302298952F100D6A3F1 /* AlarmVC.swift */,
+				4441E3042989532300D6A3F1 /* StopWatchVC.swift */,
+				4441E3062989534400D6A3F1 /* TimerVC.swift */,
+			);
+			path = Core;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -127,7 +185,6 @@
 			files = (
 				4441E2F7298950CE00D6A3F1 /* LaunchScreen.storyboard in Resources */,
 				4441E2F4298950CE00D6A3F1 /* Assets.xcassets in Resources */,
-				4441E2F2298950CD00D6A3F1 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,23 +195,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4441E2EF298950CD00D6A3F1 /* ViewController.swift in Sources */,
+				4441E301298952E100D6A3F1 /* WorldTimeVC.swift in Sources */,
+				4441E3072989534400D6A3F1 /* TimerVC.swift in Sources */,
+				4441E30C298958C700D6A3F1 /* WorldTimeTableCell.swift in Sources */,
+				4441E30E29895E7300D6A3F1 /* WorldTime.swift in Sources */,
 				4441E2EB298950CD00D6A3F1 /* AppDelegate.swift in Sources */,
 				4441E2ED298950CD00D6A3F1 /* SceneDelegate.swift in Sources */,
+				4441E303298952F100D6A3F1 /* AlarmVC.swift in Sources */,
+				4441E31029896F4100D6A3F1 /* RegionsVC.swift in Sources */,
+				4441E3052989532300D6A3F1 /* StopWatchVC.swift in Sources */,
+				4441E2FF2989518500D6A3F1 /* TabBarC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		4441E2F0298950CD00D6A3F1 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4441E2F1298950CD00D6A3F1 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		4441E2F5298950CE00D6A3F1 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -292,7 +348,6 @@
 				INFOPLIST_FILE = "Iphone Clock/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -320,7 +375,6 @@
 				INFOPLIST_FILE = "Iphone Clock/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
