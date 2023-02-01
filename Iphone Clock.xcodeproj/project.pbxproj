@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		44347796298AA5F00017E389 /* WorldTimeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44347795298AA5EF0017E389 /* WorldTimeData.swift */; };
+		44347798298AAA4C0017E389 /* RegionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44347797298AAA4C0017E389 /* RegionTableViewCell.swift */; };
 		4441E2EB298950CD00D6A3F1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4441E2EA298950CD00D6A3F1 /* AppDelegate.swift */; };
 		4441E2ED298950CD00D6A3F1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4441E2EC298950CD00D6A3F1 /* SceneDelegate.swift */; };
 		4441E2F4298950CE00D6A3F1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4441E2F3298950CE00D6A3F1 /* Assets.xcassets */; };
@@ -22,6 +24,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		44347795298AA5EF0017E389 /* WorldTimeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldTimeData.swift; sourceTree = "<group>"; };
+		44347797298AAA4C0017E389 /* RegionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionTableViewCell.swift; sourceTree = "<group>"; };
 		4441E2E7298950CD00D6A3F1 /* Iphone Clock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Iphone Clock.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4441E2EA298950CD00D6A3F1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4441E2EC298950CD00D6A3F1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -49,6 +53,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		44347794298AA5D20017E389 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				44347795298AA5EF0017E389 /* WorldTimeData.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 		4441E2DE298950CD00D6A3F1 = {
 			isa = PBXGroup;
 			children = (
@@ -68,6 +80,7 @@
 		4441E2E9298950CD00D6A3F1 /* Iphone Clock */ = {
 			isa = PBXGroup;
 			children = (
+				44347794298AA5D20017E389 /* Data */,
 				4441E30A2989589000D6A3F1 /* Model */,
 				4441E3092989588900D6A3F1 /* View */,
 				4441E3082989587E00D6A3F1 /* Controller */,
@@ -93,6 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				4441E30B298958C700D6A3F1 /* WorldTimeTableCell.swift */,
+				44347797298AAA4C0017E389 /* RegionTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -196,7 +210,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				4441E301298952E100D6A3F1 /* WorldTimeVC.swift in Sources */,
+				44347796298AA5F00017E389 /* WorldTimeData.swift in Sources */,
 				4441E3072989534400D6A3F1 /* TimerVC.swift in Sources */,
+				44347798298AAA4C0017E389 /* RegionTableViewCell.swift in Sources */,
 				4441E30C298958C700D6A3F1 /* WorldTimeTableCell.swift in Sources */,
 				4441E30E29895E7300D6A3F1 /* WorldTime.swift in Sources */,
 				4441E2EB298950CD00D6A3F1 /* AppDelegate.swift in Sources */,

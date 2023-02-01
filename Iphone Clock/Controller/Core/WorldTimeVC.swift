@@ -9,6 +9,9 @@ import UIKit
 
 class WorldTimeVC: UIViewController {
     
+    //MARK: - array of time zones
+    var times = [WorldTime]()
+    
     
     //MARK: - UI objects
     private let worldTimeTable: UITableView = {
@@ -64,14 +67,19 @@ class WorldTimeVC: UIViewController {
     // for rigth button
     @objc private func addTime() {
         let vc = RegionsVC()
+        // apply delegate
+        vc.delegate = self
         showDetailViewController(vc, sender: self)
     }
-    
-    
-    
-
 }
 
+//MARK: - UpdateTimeDelegate
+extension WorldTimeVC: UpdateTimeDelegate {
+    func updateTableTime(time: WorldTime) {
+        times.append(time)
+        worldTimeTable.reloadData()
+    }
+}
 
 //MARK: - UITableViewDelegate & DataSource
 extension WorldTimeVC: UITableViewDelegate, UITableViewDataSource {
@@ -84,7 +92,7 @@ extension WorldTimeVC: UITableViewDelegate, UITableViewDataSource {
     
     //number of rows in section
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return times.count
     }
     
     //cell for row at
@@ -92,7 +100,9 @@ extension WorldTimeVC: UITableViewDelegate, UITableViewDataSource {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: WorldTimeTableCell.identifier) as? WorldTimeTableCell else { return UITableViewCell()}
         
-        cell.configure(with: WorldTime(difference: "Завтра, +9 Г", city: "Мельбурн", time: "13:00"))
+        let model = times[indexPath.row]
+        
+        cell.configure(with: WorldTime(difference: model.difference, city: model.city, region: model.region, time: model.time))
         
         return cell
     }

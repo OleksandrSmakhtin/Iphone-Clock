@@ -11,5 +11,6 @@ import Foundation
 struct WorldTime {
     let difference: String
     let city: String
+    let region: String
     let time: String
 }
