@@ -7,6 +7,8 @@
 
 import UIKit
 
+
+
 class WorldTimeVC: UIViewController {
     
     //MARK: - array of time zones
@@ -20,6 +22,16 @@ class WorldTimeVC: UIViewController {
         table.translatesAutoresizingMaskIntoConstraints = false
         return table
     }()
+    
+    private let noTimeLbl: UILabel = {
+        let label = UILabel()
+        label.text = "Немає годинників"
+        label.font = UIFont.systemFont(ofSize: 30)
+        label.textColor = .darkGray
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     
     //MARK: - viewDidLoad
     override func viewDidLoad() {
@@ -36,6 +48,9 @@ class WorldTimeVC: UIViewController {
         // add subviews
         addSubviews()
         
+        // apply constraints
+        applyConstraints()
+        
         // apply delegates
         applyDelegates()
         
@@ -49,6 +64,7 @@ class WorldTimeVC: UIViewController {
     
     //MARK: - Add subviews
     private func addSubviews() {
+        view.addSubview(noTimeLbl)
         view.addSubview(worldTimeTable)
     }
     
@@ -61,6 +77,17 @@ class WorldTimeVC: UIViewController {
         
         navigationController?.navigationBar.tintColor = .systemOrange
         navigationController?.navigationBar.prefersLargeTitles = true
+    }
+    
+    
+    //MARK: - Apply constraints
+    private func applyConstraints() {
+        let noTimeLblConstraints = [
+            noTimeLbl.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            noTimeLbl.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ]
+        
+        NSLayoutConstraint.activate(noTimeLblConstraints)
     }
     
     //MARK: - Actions for Navigation bar items
@@ -92,6 +119,15 @@ extension WorldTimeVC: UITableViewDelegate, UITableViewDataSource {
     
     //number of rows in section
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        if times.count == 0 {
+            worldTimeTable.isHidden = true
+            noTimeLbl.isHidden = false
+        } else {
+            worldTimeTable.isHidden = false
+            noTimeLbl.isHidden = true
+        }
+        
         return times.count
     }
     

@@ -21,6 +21,11 @@
 		4441E30C298958C700D6A3F1 /* WorldTimeTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4441E30B298958C700D6A3F1 /* WorldTimeTableCell.swift */; };
 		4441E30E29895E7300D6A3F1 /* WorldTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4441E30D29895E7300D6A3F1 /* WorldTime.swift */; };
 		4441E31029896F4100D6A3F1 /* RegionsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4441E30F29896F4100D6A3F1 /* RegionsVC.swift */; };
+		44F5A261298B265A00D5AE15 /* SmartAlarmTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F5A260298B265A00D5AE15 /* SmartAlarmTableViewCell.swift */; };
+		44F5A263298B35C800D5AE15 /* Alarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F5A262298B35C800D5AE15 /* Alarm.swift */; };
+		44F5A265298B360C00D5AE15 /* AlarmData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F5A264298B360C00D5AE15 /* AlarmData.swift */; };
+		44F5A267298B36BD00D5AE15 /* AlarmTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F5A266298B36BD00D5AE15 /* AlarmTableViewCell.swift */; };
+		44F5A269298B45BB00D5AE15 /* SetAlarmVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F5A268298B45BB00D5AE15 /* SetAlarmVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +45,11 @@
 		4441E30B298958C700D6A3F1 /* WorldTimeTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldTimeTableCell.swift; sourceTree = "<group>"; };
 		4441E30D29895E7300D6A3F1 /* WorldTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldTime.swift; sourceTree = "<group>"; };
 		4441E30F29896F4100D6A3F1 /* RegionsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionsVC.swift; sourceTree = "<group>"; };
+		44F5A260298B265A00D5AE15 /* SmartAlarmTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartAlarmTableViewCell.swift; sourceTree = "<group>"; };
+		44F5A262298B35C800D5AE15 /* Alarm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alarm.swift; sourceTree = "<group>"; };
+		44F5A264298B360C00D5AE15 /* AlarmData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmData.swift; sourceTree = "<group>"; };
+		44F5A266298B36BD00D5AE15 /* AlarmTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmTableViewCell.swift; sourceTree = "<group>"; };
+		44F5A268298B45BB00D5AE15 /* SetAlarmVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetAlarmVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +67,7 @@
 			isa = PBXGroup;
 			children = (
 				44347795298AA5EF0017E389 /* WorldTimeData.swift */,
+				44F5A264298B360C00D5AE15 /* AlarmData.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -107,6 +118,8 @@
 			children = (
 				4441E30B298958C700D6A3F1 /* WorldTimeTableCell.swift */,
 				44347797298AAA4C0017E389 /* RegionTableViewCell.swift */,
+				44F5A260298B265A00D5AE15 /* SmartAlarmTableViewCell.swift */,
+				44F5A266298B36BD00D5AE15 /* AlarmTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -115,6 +128,7 @@
 			isa = PBXGroup;
 			children = (
 				4441E30D29895E7300D6A3F1 /* WorldTime.swift */,
+				44F5A262298B35C800D5AE15 /* Alarm.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -123,6 +137,7 @@
 			isa = PBXGroup;
 			children = (
 				4441E30F29896F4100D6A3F1 /* RegionsVC.swift */,
+				44F5A268298B45BB00D5AE15 /* SetAlarmVC.swift */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -209,12 +224,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44F5A265298B360C00D5AE15 /* AlarmData.swift in Sources */,
 				4441E301298952E100D6A3F1 /* WorldTimeVC.swift in Sources */,
+				44F5A261298B265A00D5AE15 /* SmartAlarmTableViewCell.swift in Sources */,
+				44F5A267298B36BD00D5AE15 /* AlarmTableViewCell.swift in Sources */,
 				44347796298AA5F00017E389 /* WorldTimeData.swift in Sources */,
 				4441E3072989534400D6A3F1 /* TimerVC.swift in Sources */,
 				44347798298AAA4C0017E389 /* RegionTableViewCell.swift in Sources */,
+				44F5A263298B35C800D5AE15 /* Alarm.swift in Sources */,
 				4441E30C298958C700D6A3F1 /* WorldTimeTableCell.swift in Sources */,
 				4441E30E29895E7300D6A3F1 /* WorldTime.swift in Sources */,
+				44F5A269298B45BB00D5AE15 /* SetAlarmVC.swift in Sources */,
 				4441E2EB298950CD00D6A3F1 /* AppDelegate.swift in Sources */,
 				4441E2ED298950CD00D6A3F1 /* SceneDelegate.swift in Sources */,
 				4441E303298952F100D6A3F1 /* AlarmVC.swift in Sources */,
