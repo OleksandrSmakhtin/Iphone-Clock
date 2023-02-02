@@ -12,6 +12,8 @@ class WorldTimeData {
     
     static let shared = WorldTimeData()
     
+    
+    
     private let timesArray = [
         WorldTime(difference: "Сьогодні, -10 Г", city: "Сан-Франциско", region: "США", time: "06:06"),
         WorldTime(difference: "Сьогодні, -10 Г", city: "Лос-Анджелес", region: "США", time: "06:06"),

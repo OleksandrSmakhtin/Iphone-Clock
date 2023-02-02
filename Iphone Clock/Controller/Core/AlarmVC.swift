@@ -11,7 +11,7 @@ class AlarmVC: UIViewController {
     
     let sections = ["Сон|Пробудження","Інше"]
     
-    //let alarms = WorldTimeData.shared.timeZone()
+    var alarms = [Alarm]()
     
     //MARK: - UI objects
     private let alarmTable: UITableView = {
@@ -66,11 +66,20 @@ class AlarmVC: UIViewController {
     @objc private func addAlarm() {
         let vc = SetAlarmVC()
         // apply delegate
-        //vc.delegate = self
+        vc.delegate = self
         showDetailViewController(vc, sender: self)
     }
-    
+}
 
+//MARK: - SetAlarmDelegate
+extension AlarmVC: SetAlarmDelegate {
+    
+    func getAlarm(alarm: Alarm) {
+        alarms.append(alarm)
+        alarmTable.reloadData()
+    }
+    
+    
 }
 
 
@@ -104,7 +113,7 @@ extension AlarmVC: UITableViewDelegate, UITableViewDataSource {
         if section == 0 {
             return 1
         } else {
-            return 10
+            return alarms.count
         }
     }
     
@@ -120,7 +129,7 @@ extension AlarmVC: UITableViewDelegate, UITableViewDataSource {
 
             guard let cell = tableView.dequeueReusableCell(withIdentifier: AlarmTableViewCell.identifier) as? AlarmTableViewCell else { return UITableViewCell()}
 
-            let model = Alarm(hours: "08", minutes: "30", isOn: false)
+            let model = alarms[indexPath.row]
             cell.configure(with: model)
             
             return cell

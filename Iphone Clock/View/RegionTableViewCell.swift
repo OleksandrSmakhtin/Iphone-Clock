@@ -58,7 +58,4 @@ class RegionTableViewCell: UITableViewCell {
     public func configure(with model: WorldTime) {
         regionLbl.text = "\(model.city), \(model.region)"
     }
-    
-    
-    
 }

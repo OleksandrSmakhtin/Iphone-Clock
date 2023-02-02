@@ -13,12 +13,13 @@ class WorldTimeVC: UIViewController {
     
     //MARK: - array of time zones
     var times = [WorldTime]()
-    
+
     
     //MARK: - UI objects
     private let worldTimeTable: UITableView = {
         let table = UITableView()
         table.register(WorldTimeTableCell.self, forCellReuseIdentifier: WorldTimeTableCell.identifier)
+        
         table.translatesAutoresizingMaskIntoConstraints = false
         return table
     }()
@@ -96,16 +97,20 @@ class WorldTimeVC: UIViewController {
         let vc = RegionsVC()
         // apply delegate
         vc.delegate = self
+        
         showDetailViewController(vc, sender: self)
+        
     }
 }
 
 //MARK: - UpdateTimeDelegate
 extension WorldTimeVC: UpdateTimeDelegate {
+    
     func updateTableTime(time: WorldTime) {
         times.append(time)
         worldTimeTable.reloadData()
     }
+    
 }
 
 //MARK: - UITableViewDelegate & DataSource
@@ -120,6 +125,7 @@ extension WorldTimeVC: UITableViewDelegate, UITableViewDataSource {
     //number of rows in section
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
+        
         if times.count == 0 {
             worldTimeTable.isHidden = true
             noTimeLbl.isHidden = false
@@ -127,6 +133,7 @@ extension WorldTimeVC: UITableViewDelegate, UITableViewDataSource {
             worldTimeTable.isHidden = false
             noTimeLbl.isHidden = true
         }
+        
         
         return times.count
     }
@@ -142,4 +149,24 @@ extension WorldTimeVC: UITableViewDelegate, UITableViewDataSource {
         
         return cell
     }
+    
+    
+    
+    
+    
+    // delete action
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        if editingStyle == .delete {
+            self.times.remove(at: indexPath.row)
+            //tableView.deleteRows(at: [indexPath], with: .fade)
+            
+            
+            
+        } else {
+            return
+        }
+        
+    }
+    
 }
