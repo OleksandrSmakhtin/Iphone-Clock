@@ -56,7 +56,7 @@ class AlarmVC: UIViewController {
         navigationController?.navigationBar.tintColor = .systemOrange
         
         // left button
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Корегувати", style: .done, target: self, action: nil)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Корегувати", style: .done, target: self, action: #selector(editingMode))
         // right button
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .done, target: self, action: #selector(addAlarm))
     }
@@ -68,6 +68,11 @@ class AlarmVC: UIViewController {
         // apply delegate
         vc.delegate = self
         showDetailViewController(vc, sender: self)
+    }
+    
+    // editing mode
+    @objc private func editingMode() {
+        alarmTable.isEditing = true
     }
 }
 
