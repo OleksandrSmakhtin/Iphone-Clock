@@ -7,11 +7,13 @@
 
 import UIKit
 
+
+
 class WorldTimeTableCell: UITableViewCell {
 
     //MARK: - Identifier
     static let identifier = "WorldTimeTableCell"
-    
+        
     //MARK: - UI objects
     // difference lbl
     private let differenceLbl: UILabel = {
@@ -49,9 +51,7 @@ class WorldTimeTableCell: UITableViewCell {
         
         //apply constraints
         applyConstraints()
-        
-        
-        
+                
     }
     
     
@@ -92,8 +92,15 @@ class WorldTimeTableCell: UITableViewCell {
     }
     
     
-    
-    
+    //MARK: - hides time lbls
+    public func isTimeLblHidden(hideStatus: Bool) {
+        
+        if hideStatus {
+            timeLbl.isHidden = true
+        } else {
+            timeLbl.isHidden = false
+        }
+    }
     
     //MARK: - Configure cell
     public func configure(with model: WorldTime) {
@@ -101,11 +108,5 @@ class WorldTimeTableCell: UITableViewCell {
         cityLbl.text = model.city
         timeLbl.text = model.time
     }
-    
-    
-    
-    
-    
-    
-
 }
+

@@ -8,7 +8,6 @@
 import UIKit
 
 
-
 class WorldTimeVC: UIViewController {
     
     //MARK: - array of time zones
@@ -72,7 +71,7 @@ class WorldTimeVC: UIViewController {
     //MARK: - Configure NavBar
     private func configureNavigationBar() {
         // left button
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Корегувати", style: .done, target: self, action: nil)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Корегувати", style: .done, target: self, action: #selector(editingMode))
         // right button
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .done, target: self, action: #selector(addTime))
         
@@ -99,7 +98,24 @@ class WorldTimeVC: UIViewController {
         vc.delegate = self
         
         showDetailViewController(vc, sender: self)
+    }
+    
+    // editing mode
+    @objc private func editingMode() {
         
+        guard times.count != 0 else { return }
+        
+        if worldTimeTable.isEditing {
+            worldTimeTable.isEditing = false
+            
+            worldTimeTable.reloadData()
+            navigationItem.leftBarButtonItem?.title = "Корегувати"
+        } else {
+            worldTimeTable.isEditing = true
+            
+            worldTimeTable.reloadData()
+            navigationItem.leftBarButtonItem?.title = "Готово"
+        }
     }
 }
 
@@ -145,13 +161,38 @@ extension WorldTimeVC: UITableViewDelegate, UITableViewDataSource {
         
         let model = times[indexPath.row]
         
-        cell.configure(with: WorldTime(difference: model.difference, city: model.city, region: model.region, time: model.time))
+        // hide time lbl when editing mode is on
+        if tableView.isEditing {
+            cell.isTimeLblHidden(hideStatus: true)
+        } else {
+            cell.isTimeLblHidden(hideStatus: false)
+        }
+        
+        
+        cell.configure(with: model)
         
         return cell
     }
+
     
     
+    // move rows
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
     
+    // table did move row
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        
+        // swap values from old index to new index
+        times.swapAt(sourceIndexPath.row, destinationIndexPath.row)
+        
+    }
+    
+    // title for deliting rows
+    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+        return "Видалити"
+    }
     
     
     // delete action
@@ -159,10 +200,8 @@ extension WorldTimeVC: UITableViewDelegate, UITableViewDataSource {
         
         if editingStyle == .delete {
             self.times.remove(at: indexPath.row)
-            //tableView.deleteRows(at: [indexPath], with: .fade)
-            
-            
-            
+            tableView.deleteRows(at: [indexPath], with: .fade)
+ 
         } else {
             return
         }

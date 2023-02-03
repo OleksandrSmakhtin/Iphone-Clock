@@ -16,6 +16,7 @@ class AlarmVC: UIViewController {
     //MARK: - UI objects
     private let alarmTable: UITableView = {
         let table = UITableView()
+        table.allowsSelectionDuringEditing = true
         table.register(AlarmTableViewCell.self, forCellReuseIdentifier: AlarmTableViewCell.identifier)
         table.register(SmartAlarmTableViewCell.self, forCellReuseIdentifier: SmartAlarmTableViewCell.identifier)
         return table
@@ -72,7 +73,19 @@ class AlarmVC: UIViewController {
     
     // editing mode
     @objc private func editingMode() {
-        alarmTable.isEditing = true
+        guard alarms.count != 0 else { return }
+        
+        if alarmTable.isEditing {
+            alarmTable.isEditing = false
+            
+            alarmTable.reloadData()
+            navigationItem.leftBarButtonItem?.title = "Корегувати"
+        } else {
+            alarmTable.isEditing = true
+            
+            alarmTable.reloadData()
+            navigationItem.leftBarButtonItem?.title = "Готово"
+        }
     }
 }
 
@@ -122,7 +135,39 @@ extension AlarmVC: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    // can edit rows
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        // can't edit rows at section 1 (index 0)
+        if indexPath.section == 0 {
+            return false
+        } else {
+            return true
+        }
+    }
     
+    
+    // title for delete btn
+    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+        return "Видалити"
+    }
+    
+    // editing styles
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        switch editingStyle {
+        case .delete:
+            self.alarms.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        default:
+            return
+        }
+        
+        
+    }
+    
+    
+    
+    // cell for at
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.section == 0 {
@@ -135,21 +180,29 @@ extension AlarmVC: UITableViewDelegate, UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: AlarmTableViewCell.identifier) as? AlarmTableViewCell else { return UITableViewCell()}
 
             let model = alarms[indexPath.row]
+            
+            
+            
+            // hiding switch when editing mode is on and add accessoryType
+            if tableView.isEditing {
+                cell.isSwitchHidden(hideStatus: true)
+                cell.editingAccessoryType = .disclosureIndicator
+                
+            } else {
+                cell.isSwitchHidden(hideStatus: false)
+            }
+            
             cell.configure(with: model)
             
+            
             return cell
-
         }
-        
     }
     
     
+    // delegates
     private func applyDelegates() {
         alarmTable.delegate = self
         alarmTable.dataSource = self
     }
-    
-    
-    
-    
 }

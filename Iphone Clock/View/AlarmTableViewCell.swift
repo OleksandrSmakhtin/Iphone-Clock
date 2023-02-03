@@ -96,6 +96,14 @@ class AlarmTableViewCell: UITableViewCell {
         timeLbl.text = "\(model.hours):\(model.minutes)"
     }
     
+    //MARK: - is Switch hidden
+    public func isSwitchHidden(hideStatus: Bool) {
+        if hideStatus {
+            alarmSwitch.isHidden = true
+        } else {
+            alarmSwitch.isHidden = false
+        }
+    }
     
     
 
