@@ -26,6 +26,8 @@
 		44F5A265298B360C00D5AE15 /* AlarmData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F5A264298B360C00D5AE15 /* AlarmData.swift */; };
 		44F5A267298B36BD00D5AE15 /* AlarmTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F5A266298B36BD00D5AE15 /* AlarmTableViewCell.swift */; };
 		44F5A269298B45BB00D5AE15 /* SetAlarmVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F5A268298B45BB00D5AE15 /* SetAlarmVC.swift */; };
+		44F5A26D298F049900D5AE15 /* TimerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F5A26C298F049900D5AE15 /* TimerModel.swift */; };
+		44F5A26F298F058100D5AE15 /* TimerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F5A26E298F058100D5AE15 /* TimerData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +52,8 @@
 		44F5A264298B360C00D5AE15 /* AlarmData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmData.swift; sourceTree = "<group>"; };
 		44F5A266298B36BD00D5AE15 /* AlarmTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmTableViewCell.swift; sourceTree = "<group>"; };
 		44F5A268298B45BB00D5AE15 /* SetAlarmVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetAlarmVC.swift; sourceTree = "<group>"; };
+		44F5A26C298F049900D5AE15 /* TimerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerModel.swift; sourceTree = "<group>"; };
+		44F5A26E298F058100D5AE15 /* TimerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +72,7 @@
 			children = (
 				44347795298AA5EF0017E389 /* WorldTimeData.swift */,
 				44F5A264298B360C00D5AE15 /* AlarmData.swift */,
+				44F5A26E298F058100D5AE15 /* TimerData.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -129,6 +134,7 @@
 			children = (
 				4441E30D29895E7300D6A3F1 /* WorldTime.swift */,
 				44F5A262298B35C800D5AE15 /* Alarm.swift */,
+				44F5A26C298F049900D5AE15 /* TimerModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -233,6 +239,8 @@
 				44347798298AAA4C0017E389 /* RegionTableViewCell.swift in Sources */,
 				44F5A263298B35C800D5AE15 /* Alarm.swift in Sources */,
 				4441E30C298958C700D6A3F1 /* WorldTimeTableCell.swift in Sources */,
+				44F5A26F298F058100D5AE15 /* TimerData.swift in Sources */,
+				44F5A26D298F049900D5AE15 /* TimerModel.swift in Sources */,
 				4441E30E29895E7300D6A3F1 /* WorldTime.swift in Sources */,
 				44F5A269298B45BB00D5AE15 /* SetAlarmVC.swift in Sources */,
 				4441E2EB298950CD00D6A3F1 /* AppDelegate.swift in Sources */,

@@ -34,6 +34,16 @@ class StopWatchVC: UIViewController {
         return view
     }()
     
+    private let circleView_2: UIView = {
+        let view = UIView()
+        view.frame = CGRect(x: 0, y: 0, width: 80, height: 80)
+        view.layer.cornerRadius = view.frame.width / 2.0
+        view.backgroundColor = UIColor(red: 0.10, green: 0.42, blue: 0.17, alpha: 1.0)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     private let startStopBtn: UIButton = {
         let button = UIButton()
         button.setTitle("Старт", for: .normal)

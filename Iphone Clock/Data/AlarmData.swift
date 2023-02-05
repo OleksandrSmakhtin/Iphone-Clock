@@ -11,15 +11,7 @@ import Foundation
 class AlarmData {
     
     static let shared = AlarmData()
-    
-    private let alarmArray = [
-        Alarm(hours: "06", minutes: "00", isOn: false),
-        Alarm(hours: "06", minutes: "30", isOn: false),
-        Alarm(hours: "07", minutes: "10", isOn: false),
-        Alarm(hours: "07", minutes: "45", isOn: false),
-        Alarm(hours: "08", minutes: "15", isOn: false),
-        Alarm(hours: "09", minutes: "10", isOn: false),
-    ]
+
     
     private let allHours = ["00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"]
     
@@ -34,9 +26,5 @@ class AlarmData {
     func minutes() -> [String] {
         return allMinutes
     }
-    
-    func alarms() -> [Alarm] {
-        return alarmArray
-    }
-    
+
 }
