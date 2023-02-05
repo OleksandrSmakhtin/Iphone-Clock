@@ -9,42 +9,44 @@ import UIKit
 
 class TimerVC: UIViewController {
     
+    //MARK: - Data
     private let hours = TimerData.shared.hours()
     private let minutes = TimerData.shared.minutes()
     private let seconds = TimerData.shared.seconds()
     
+    private let settings = SettingsData.shared.getTimerSettings()
     
+    //MARK: - Timer
     private var timer = Timer()
-    private var count = 0
+    private var countDown = 0
     private var timerCounting = false
     
     
-    //MARK: - UI objects
+    //MARK: - UI time picker
     private let timePicker: UIPickerView = {
         let picker = UIPickerView()
         picker.translatesAutoresizingMaskIntoConstraints = false
         return picker
     }()
-    
+    //MARK: - UI time lbl
     private let timeLbl: UILabel = {
         let label = UILabel()
-        label.text = "00:00:00"
         label.isHidden = true
         label.font = UIFont.systemFont(ofSize: 70, weight: .thin)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-
+    //MARK: - UI end time lbl
     private let endTimeLbl: UILabel = {
         let label = UILabel()
         return label
     }()
-    
+    //MARK: - UI bell image
     private let bellImage: UIImageView = {
         let image = UIImageView()
         return image
     }()
-    
+    //MARK: - UI hours lbl
     private let hoursLbl: UILabel = {
         let label = UILabel()
         label.text = "г"
@@ -52,7 +54,7 @@ class TimerVC: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+    //MARK: - UI minutes lbl
     private let minutesLbl: UILabel = {
         let label = UILabel()
         label.text = "хв"
@@ -60,7 +62,7 @@ class TimerVC: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+    //MARK: - UI seconds lbl
     private let secondsLbl: UILabel = {
         let label = UILabel()
         label.text = "с"
@@ -68,7 +70,7 @@ class TimerVC: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+    //MARK: - UI circle view 1
     private let circleView_1: UIView = {
         let view = UIView()
         view.frame = CGRect(x: 0, y: 0, width: 80, height: 80)
@@ -77,7 +79,7 @@ class TimerVC: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
+    //MARK: - UI circle view 2
     private let circleView_2: UIView = {
         let view = UIView()
         view.frame = CGRect(x: 0, y: 0, width: 80, height: 80)
@@ -87,7 +89,7 @@ class TimerVC: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
+    //MARK: - UI cancel btn
     private let cancelBtn: UIButton = {
         let button = UIButton()
         button.setTitle("Відміна", for: .normal)
@@ -103,7 +105,7 @@ class TimerVC: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-    
+    //MARK: - UI start pause btn
     private let startPauseBtn: UIButton = {
         let button = UIButton()
         button.setTitle("Старт", for: .normal)
@@ -119,6 +121,28 @@ class TimerVC: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
+    //MARK: - UI gray view
+    private let grayView: UIView = {
+        let view = UIView()
+        view.layer.cornerRadius = 10
+        view.backgroundColor = .systemGray6
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    //MARK: - UI settings table
+    private let settingsTable: UITableView = {
+        let table = UITableView()
+        table.layer.backgroundColor = UIColor.clear.cgColor
+        table.isScrollEnabled = false
+        table.separatorStyle = .none
+        table.showsVerticalScrollIndicator = false
+        table.backgroundColor = .systemGray6
+        table.layer.cornerRadius = 10
+        table.translatesAutoresizingMaskIntoConstraints = false
+        table.register(SettingsTableCell.self, forCellReuseIdentifier: SettingsTableCell.identifier)
+        return table
+    }()
+    
     
     
     //MARK: - viewDidLoad
@@ -131,8 +155,53 @@ class TimerVC: UIViewController {
         // apply constraints
         applyConstraints()
         // apply delegates
-        applyDelegates()
+        applyPickerViewDelegates()
+        applyTableViewDelegates()
 
+    }
+    
+    //MARK: - viewDidLoyoutSubviews
+//    override func viewDidLayoutSubviews() {
+//        super.viewDidLayoutSubviews()
+//        settingsTable.frame = grayView.bounds
+//    }
+    
+    //MARK: - Convert to seconds
+    private func convertToSeconds(hours: Int, minutes: Int, seconds: Int) -> Int {
+        
+        let result = ((hours * 60) * 60) + (minutes * 60) + seconds
+        return result
+    }
+    
+    //MARK: - Update time lbl with correct time format
+    private func makeFullStringTime(seconds: Int) {
+        var timeString = ""
+        timeString += String(format: "%02d", seconds / 3600)
+        timeString += ":"
+        timeString += String(format: "%02d", (seconds % 3600) / 60)
+        timeString += ":"
+        timeString += String(format: "%02d", (seconds % 3600) % 60)
+        timeLbl.text = timeString
+        print(timeString)
+    }
+    
+    //MARK: - Timer action
+    @objc func countDownAction() {
+        if countDown == 0 {
+            timePicker.isHidden = false
+            timeLbl.isHidden = true
+            
+            // change button title and color to reuse
+            startPauseBtn.setTitle("Старт", for: .normal)
+            startPauseBtn.backgroundColor = UIColor(red: 0.10, green: 0.42, blue: 0.17, alpha: 0.5)
+            startPauseBtn.setTitleColor(.green, for: .normal)
+            
+            countDown = 0
+            timer.invalidate()
+        } else {
+            countDown -= 1
+            makeFullStringTime(seconds: countDown)
+        }
     }
     
     //MARK: - Btn actions
@@ -142,6 +211,25 @@ class TimerVC: UIViewController {
         
         switch title {
         case "Старт":
+            // logic
+            let hours = timePicker.selectedRow(inComponent: 0)
+            let minutes = timePicker.selectedRow(inComponent: 1)
+            let seconds = timePicker.selectedRow(inComponent: 2)
+            print("\(hours):\(minutes):\(seconds)")
+            
+            // accessability
+            if hours == 0 && minutes == 0 && seconds == 0 {
+                return
+            }
+            
+            countDown = convertToSeconds(hours: hours, minutes: minutes, seconds: seconds)
+            // change lbl instantly
+            makeFullStringTime(seconds: countDown)
+            
+            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(countDownAction), userInfo: nil, repeats: true)
+            print(countDown)
+            
+            
             // visabulity changing
             timePicker.isHidden = true
             timeLbl.isHidden = false
@@ -151,12 +239,17 @@ class TimerVC: UIViewController {
             startPauseBtn.setTitleColor(.systemOrange, for: .normal)
             startPauseBtn.setTitle("Пауза", for: .normal)
             cancelBtn.setTitleColor(.white, for: .normal)
+            
         case "Пауза":
+            timer.invalidate()
             startPauseBtn.setTitle("Далі", for: .normal)
             circleView_1.backgroundColor = UIColor(red: 0.10, green: 0.42, blue: 0.17, alpha: 0.5)
             startPauseBtn.backgroundColor = UIColor(red: 0.10, green: 0.42, blue: 0.17, alpha: 0.5)
             startPauseBtn.setTitleColor(.green, for: .normal)
         case "Далі":
+            
+            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(countDownAction), userInfo: nil, repeats: true)
+            
             circleView_1.backgroundColor = UIColor(red: 0.51, green: 0.32, blue: 0.20, alpha: 0.255)
             startPauseBtn.backgroundColor = UIColor(red: 0.51, green: 0.32, blue: 0.20, alpha: 0.255)
             startPauseBtn.setTitleColor(.systemOrange, for: .normal)
@@ -170,6 +263,11 @@ class TimerVC: UIViewController {
     
     @objc private func cancelAction() {
         
+        // logic
+        timer.invalidate()
+        countDown = 0
+        
+        // ui changes
         cancelBtn.setTitleColor(.systemGray3, for: .normal)
         timeLbl.isHidden = true
         timePicker.isHidden = false
@@ -195,7 +293,11 @@ class TimerVC: UIViewController {
         circleView_2.addSubview(cancelBtn)
         // add time lbl
         view.addSubview(timeLbl)
-//        view.addSubview(timeLbl)
+        // add gray view
+        //view.addSubview(grayView)
+        // add settings table as subviews of gray view
+        //grayView.addSubview(settingsTable)
+        view.addSubview(settingsTable)
 //        view.addSubview(endTimeLbl)
 //        view.addSubview(bellImage)
     }
@@ -260,6 +362,21 @@ class TimerVC: UIViewController {
             timeLbl.topAnchor.constraint(equalTo: view.topAnchor, constant: 200)
         ]
         
+        let settingsTableConstraints = [
+            settingsTable.topAnchor.constraint(equalTo: startPauseBtn.bottomAnchor, constant: 30),
+            settingsTable.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            settingsTable.heightAnchor.constraint(equalToConstant: CGFloat(settings.count * 50)),
+            settingsTable.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+        ]
+        
+        // gray view constraints
+//        let grayViewConstraints = [
+//            grayView.topAnchor.constraint(equalTo: startPauseBtn.bottomAnchor, constant: 30),
+//            grayView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+//            grayView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+//            grayView.heightAnchor.constraint(equalToConstant: 50)
+//        ]
+        
         // activate time picker constraints
         NSLayoutConstraint.activate(timePickerConstraints)
         NSLayoutConstraint.activate(hourLblConstraints)
@@ -273,6 +390,9 @@ class TimerVC: UIViewController {
         NSLayoutConstraint.activate(cirleView_2Constraints)
         // activate time lbl
         NSLayoutConstraint.activate(timeLblConstraints)
+        // activate gray view constraints
+        NSLayoutConstraint.activate(settingsTableConstraints)
+        //NSLayoutConstraint.activate(grayViewConstraints)
     }
     
 }
@@ -282,7 +402,7 @@ class TimerVC: UIViewController {
 extension TimerVC: UIPickerViewDelegate, UIPickerViewDataSource {
     
     //delegates
-    private func applyDelegates() {
+    private func applyPickerViewDelegates() {
         timePicker.delegate = self
         timePicker.dataSource = self
     }
@@ -306,10 +426,7 @@ extension TimerVC: UIPickerViewDelegate, UIPickerViewDataSource {
             return 0
         }
     }
-    
-    
-    
-    
+
     // title for row at component
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         
@@ -326,12 +443,46 @@ extension TimerVC: UIPickerViewDelegate, UIPickerViewDataSource {
         
     }
     
-//    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-//
-//
-//    }
-    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        
+        
+    }
+}
 
+
+//MARK: - UITableViewDelegate & DataSource
+extension TimerVC: UITableViewDelegate, UITableViewDataSource {
     
+    // apply delegates
+    private func applyTableViewDelegates() {
+        settingsTable.delegate = self
+        settingsTable.dataSource = self
+    }
+    
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return settings.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: SettingsTableCell.identifier) as? SettingsTableCell else { return UITableViewCell()}
+        
+        let model = settings[indexPath.row]
+        
+        if model.accesorry {
+            cell.accessoryType = .disclosureIndicator
+        }
+        
+        cell.configure(with: model)
+        
+
+        
+        return cell
+        
+    }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 50
+    }
     
 }

@@ -102,10 +102,6 @@ class StopWatchVC: UIViewController {
         ]
         
         let startStopBtnConstraints = [
-//            startStopBtn.topAnchor.constraint(equalTo: timeLbl.bottomAnchor, constant: 30),
-//            startStopBtn.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-//            startStopBtn.widthAnchor.constraint(equalToConstant: 80),
-//            startStopBtn.heightAnchor.constraint(equalToConstant: 80)
             startStopBtn.widthAnchor.constraint(equalToConstant: 77),
             startStopBtn.heightAnchor.constraint(equalToConstant: 77),
             startStopBtn.centerXAnchor.constraint(equalTo: circleView_1.centerXAnchor),

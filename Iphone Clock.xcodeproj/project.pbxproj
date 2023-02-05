@@ -28,6 +28,9 @@
 		44F5A269298B45BB00D5AE15 /* SetAlarmVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F5A268298B45BB00D5AE15 /* SetAlarmVC.swift */; };
 		44F5A26D298F049900D5AE15 /* TimerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F5A26C298F049900D5AE15 /* TimerModel.swift */; };
 		44F5A26F298F058100D5AE15 /* TimerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F5A26E298F058100D5AE15 /* TimerData.swift */; };
+		44F5A2712990523400D5AE15 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F5A2702990523400D5AE15 /* Setting.swift */; };
+		44F5A2732990531A00D5AE15 /* SettingsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F5A2722990531A00D5AE15 /* SettingsData.swift */; };
+		44F5A2752990570200D5AE15 /* SettingsTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F5A2742990570200D5AE15 /* SettingsTableCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +57,9 @@
 		44F5A268298B45BB00D5AE15 /* SetAlarmVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetAlarmVC.swift; sourceTree = "<group>"; };
 		44F5A26C298F049900D5AE15 /* TimerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerModel.swift; sourceTree = "<group>"; };
 		44F5A26E298F058100D5AE15 /* TimerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerData.swift; sourceTree = "<group>"; };
+		44F5A2702990523400D5AE15 /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
+		44F5A2722990531A00D5AE15 /* SettingsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsData.swift; sourceTree = "<group>"; };
+		44F5A2742990570200D5AE15 /* SettingsTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +79,7 @@
 				44347795298AA5EF0017E389 /* WorldTimeData.swift */,
 				44F5A264298B360C00D5AE15 /* AlarmData.swift */,
 				44F5A26E298F058100D5AE15 /* TimerData.swift */,
+				44F5A2722990531A00D5AE15 /* SettingsData.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -125,6 +132,7 @@
 				44347797298AAA4C0017E389 /* RegionTableViewCell.swift */,
 				44F5A260298B265A00D5AE15 /* SmartAlarmTableViewCell.swift */,
 				44F5A266298B36BD00D5AE15 /* AlarmTableViewCell.swift */,
+				44F5A2742990570200D5AE15 /* SettingsTableCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -135,6 +143,7 @@
 				4441E30D29895E7300D6A3F1 /* WorldTime.swift */,
 				44F5A262298B35C800D5AE15 /* Alarm.swift */,
 				44F5A26C298F049900D5AE15 /* TimerModel.swift */,
+				44F5A2702990523400D5AE15 /* Setting.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -240,11 +249,14 @@
 				44F5A263298B35C800D5AE15 /* Alarm.swift in Sources */,
 				4441E30C298958C700D6A3F1 /* WorldTimeTableCell.swift in Sources */,
 				44F5A26F298F058100D5AE15 /* TimerData.swift in Sources */,
+				44F5A2712990523400D5AE15 /* Setting.swift in Sources */,
 				44F5A26D298F049900D5AE15 /* TimerModel.swift in Sources */,
 				4441E30E29895E7300D6A3F1 /* WorldTime.swift in Sources */,
 				44F5A269298B45BB00D5AE15 /* SetAlarmVC.swift in Sources */,
+				44F5A2732990531A00D5AE15 /* SettingsData.swift in Sources */,
 				4441E2EB298950CD00D6A3F1 /* AppDelegate.swift in Sources */,
 				4441E2ED298950CD00D6A3F1 /* SceneDelegate.swift in Sources */,
+				44F5A2752990570200D5AE15 /* SettingsTableCell.swift in Sources */,
 				4441E303298952F100D6A3F1 /* AlarmVC.swift in Sources */,
 				4441E31029896F4100D6A3F1 /* RegionsVC.swift in Sources */,
 				4441E3052989532300D6A3F1 /* StopWatchVC.swift in Sources */,

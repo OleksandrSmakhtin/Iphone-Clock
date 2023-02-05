@@ -115,7 +115,7 @@ extension AlarmVC: UITableViewDelegate, UITableViewDataSource {
         return sections[section]
     }
     
-    //will display heade view
+    //will display header view
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         
         guard let header = view as? UITableViewHeaderFooterView else { return }
@@ -144,7 +144,6 @@ extension AlarmVC: UITableViewDelegate, UITableViewDataSource {
             return true
         }
     }
-    
     
     // title for delete btn
     func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
