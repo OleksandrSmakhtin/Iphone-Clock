@@ -9,9 +9,13 @@ import UIKit
 
 class StopWatchVC: UIViewController {
     
+    //MARK: - Array
+    private var circles = [Circle]()
+    
     
     //MARK: - Timer
     private var timer = Timer()
+    
     private var min = 0
     private var sec = 0
     private var milisec = 0
@@ -75,6 +79,14 @@ class StopWatchVC: UIViewController {
         return button
     }()
     
+    private let circlesTable: UITableView = {
+        let table = UITableView()
+        table.register(CircleTableCell.self, forCellReuseIdentifier: CircleTableCell.identifier)
+        table.translatesAutoresizingMaskIntoConstraints = false
+        table.showsVerticalScrollIndicator = false
+        return table
+    }()
+    
     
     //MARK: - Actions
     @objc private func startStopAction() {
@@ -83,6 +95,14 @@ class StopWatchVC: UIViewController {
         
         switch title {
         case "Старт":
+            
+            if circles.count == 0 {
+                let model = Circle(circle: 1, time: "00:00,00")
+                circles.append(model)
+                print("ADDED")
+                circlesTable.reloadData()
+            }
+            
             // ui changes
             startStopBtn.setTitle("Стоп", for: .normal)
             startStopBtn.setTitleColor(.systemRed, for: .normal)
@@ -130,26 +150,33 @@ class StopWatchVC: UIViewController {
             resetAndCircleBtn.setTitleColor(.systemGray, for: .normal)
             resetAndCircleBtn.backgroundColor = .systemGray6
             circleView_2.backgroundColor = .systemGray6
-            
             // logic
             timeLbl.text = "00:00,00"
             min = 0
             sec = 0
             milisec = 0
-            
-            
+
         default:
             return
         }
     }
     
     @objc private func timerAction() {
-        convertTimeToString()
+            
+            
+        //circlesTable.reloadData()
+        let time = convertTimeToString()
+            
+        guard var model = circles.last else { return }
+        model.updateTime(with: time)
+        circles.removeLast()
+        circles.append(model)
+        circlesTable.reloadData()
         milisec += 1
     }
     
     
-    private func convertTimeToString() {
+    private func convertTimeToString() -> String {
         // works
         if milisec > 99 {
             milisec = 0
@@ -168,6 +195,7 @@ class StopWatchVC: UIViewController {
         timeString += String(format: "%02d", milisec)
         
         timeLbl.text = timeString
+        return timeString
     }
     
     
@@ -180,6 +208,8 @@ class StopWatchVC: UIViewController {
         addSubviews()
         // apply constraints
         applyConstraints()
+        // apply delegates
+        applyDelegates()
     }
     
     
@@ -191,6 +221,7 @@ class StopWatchVC: UIViewController {
         view.addSubview(circleView_1)
         circleView_2.addSubview(resetAndCircleBtn)
         view.addSubview(circleView_2)
+        view.addSubview(circlesTable)
     }
 
     //MARK: - Apply constraints
@@ -201,7 +232,6 @@ class StopWatchVC: UIViewController {
             timeLbl.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             timeLbl.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             timeLbl.topAnchor.constraint(equalTo: view.topAnchor, constant: 200)
-            
         ]
         
         let circleView_1Constraints = [
@@ -224,6 +254,7 @@ class StopWatchVC: UIViewController {
             circleView_2.widthAnchor.constraint(equalToConstant: 80),
             circleView_2.heightAnchor.constraint(equalToConstant: 80)
         ]
+        
         let resetAndCircleBtnConstraints = [
             resetAndCircleBtn.widthAnchor.constraint(equalToConstant: 77),
             resetAndCircleBtn.heightAnchor.constraint(equalToConstant: 77),
@@ -231,10 +262,54 @@ class StopWatchVC: UIViewController {
             resetAndCircleBtn.centerYAnchor.constraint(equalTo: circleView_2.centerYAnchor)
         ]
         
+        let circlesTableConstraints = [
+            circlesTable.topAnchor.constraint(equalTo: startStopBtn.bottomAnchor, constant: 30),
+            circlesTable.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            circlesTable.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            circlesTable.heightAnchor.constraint(equalToConstant: 300)
+        ]
+        
         NSLayoutConstraint.activate(timeLblConstraints)
         NSLayoutConstraint.activate(startStopBtnConstraints)
         NSLayoutConstraint.activate(circleView_1Constraints)
         NSLayoutConstraint.activate(cirleView_2Constraints)
         NSLayoutConstraint.activate(resetAndCircleBtnConstraints)
+        NSLayoutConstraint.activate(circlesTableConstraints)
     }
+}
+
+
+//MARK: - UITableViewDelegate & DataSource
+extension StopWatchVC: UITableViewDelegate, UITableViewDataSource {
+    
+    private func applyDelegates() {
+        circlesTable.delegate = self
+        circlesTable.dataSource = self
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return circles.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: CircleTableCell.identifier) as? CircleTableCell
+        else {
+            print("Else top")
+            return UITableViewCell()
+        }
+        
+        let model = circles[indexPath.row]
+        
+        print(model.circle)
+        print(model.time)
+        
+        cell.configure(with: model)
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 40
+    }
+    
 }
