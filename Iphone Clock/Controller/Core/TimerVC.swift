@@ -187,8 +187,10 @@ class TimerVC: UIViewController {
             
             // change button title and color to reuse
             startPauseBtn.setTitle("Старт", for: .normal)
-            startPauseBtn.backgroundColor = UIColor(red: 0.10, green: 0.42, blue: 0.17, alpha: 0.5)
-            startPauseBtn.setTitleColor(.green, for: .normal)
+            startPauseBtn.backgroundColor = UIColor(named: "SpecialGreen")
+            circleView_1.backgroundColor = UIColor(named: "SpecialGreen")
+            startPauseBtn.setTitleColor(.systemGreen, for: .normal)
+            cancelBtn.setTitleColor(.systemGray3, for: .normal)
             
             countDown = 0
             timer.invalidate()
