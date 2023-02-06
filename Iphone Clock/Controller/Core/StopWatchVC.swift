@@ -21,6 +21,15 @@ class StopWatchVC: UIViewController {
     private let resetAndCircleBtn: UIButton = {
         let button = UIButton()
         button.setTitle("Круг", for: .normal)
+        button.setTitleColor(.systemGray, for: .normal)
+        button.frame = CGRect(x: 0, y: 0, width: 77, height: 77)
+        button.backgroundColor = .systemGray6
+        // action
+        //button.addTarget(self, action: #selector(cancelAction), for: .touchUpInside)
+        // dynamic corner radius
+        button.layer.cornerRadius = button.frame.width / 2.0
+        button.layer.borderWidth = 2
+        button.layer.borderColor = .none
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -29,7 +38,7 @@ class StopWatchVC: UIViewController {
         let view = UIView()
         view.frame = CGRect(x: 0, y: 0, width: 80, height: 80)
         view.layer.cornerRadius = view.frame.width / 2.0
-        view.backgroundColor = UIColor(red: 0.10, green: 0.42, blue: 0.17, alpha: 1.0)
+        view.backgroundColor = UIColor(named: "SpecialGreen")
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -38,8 +47,7 @@ class StopWatchVC: UIViewController {
         let view = UIView()
         view.frame = CGRect(x: 0, y: 0, width: 80, height: 80)
         view.layer.cornerRadius = view.frame.width / 2.0
-        view.backgroundColor = UIColor(red: 0.10, green: 0.42, blue: 0.17, alpha: 1.0)
-        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .systemGray6
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -48,8 +56,10 @@ class StopWatchVC: UIViewController {
         let button = UIButton()
         button.setTitle("Старт", for: .normal)
         button.frame = CGRect(x: 0, y: 0, width: 77, height: 77)
-        button.backgroundColor = UIColor(red: 0.10, green: 0.42, blue: 0.17, alpha: 0.5)
-        button.setTitleColor(.green, for: .normal)
+        button.backgroundColor = UIColor(named: "SpecialGreen")
+        button.setTitleColor(.systemGreen, for: .normal)
+        // action
+        button.addTarget(self, action: #selector(startStopAction), for: .touchUpInside)
         //dynamic round corner radius
         button.layer.cornerRadius = button.frame.width / 2.0
         button.layer.borderWidth = 2
@@ -57,6 +67,31 @@ class StopWatchVC: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
+    
+    
+    //MARK: - Actions
+    @objc private func startStopAction() {
+        
+        guard let title = startStopBtn.title(for: .normal) else { return }
+        
+        switch title {
+        case "Старт":
+            // ui changes
+            startStopBtn.setTitle("Стоп", for: .normal)
+            startStopBtn.setTitleColor(.systemRed, for: .normal)
+            startStopBtn.backgroundColor = UIColor(named: "SpecialRed")
+            circleView_1.backgroundColor = UIColor(named: "SpecialRed")
+            
+            
+        case "Стоп":
+            print("stop")
+            
+        default:
+            return
+        }
+        
+        
+    }
     
     
     //MARK: - viewDidLoad
@@ -77,6 +112,8 @@ class StopWatchVC: UIViewController {
         view.addSubview(resetAndCircleBtn)
         circleView_1.addSubview(startStopBtn)
         view.addSubview(circleView_1)
+        circleView_2.addSubview(resetAndCircleBtn)
+        view.addSubview(circleView_2)
         //view.addSubview(startStopBtn)
     }
 
@@ -88,11 +125,6 @@ class StopWatchVC: UIViewController {
             timeLbl.topAnchor.constraint(equalTo: view.topAnchor, constant: 200)
             
         ]
-        
-//        let resetAndCircleBtnConstraints = [
-//
-//        ]
-//
         
         let circleView_1Constraints = [
             circleView_1.topAnchor.constraint(equalTo: timeLbl.bottomAnchor, constant: 100),
@@ -106,12 +138,25 @@ class StopWatchVC: UIViewController {
             startStopBtn.heightAnchor.constraint(equalToConstant: 77),
             startStopBtn.centerXAnchor.constraint(equalTo: circleView_1.centerXAnchor),
             startStopBtn.centerYAnchor.constraint(equalTo: circleView_1.centerYAnchor)
-            
+        ]
+        
+        let cirleView_2Constraints = [
+            circleView_2.centerYAnchor.constraint(equalTo: circleView_1.centerYAnchor),
+            circleView_2.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            circleView_2.widthAnchor.constraint(equalToConstant: 80),
+            circleView_2.heightAnchor.constraint(equalToConstant: 80)
+        ]
+        let resetAndCircleBtnConstraints = [
+            resetAndCircleBtn.widthAnchor.constraint(equalToConstant: 77),
+            resetAndCircleBtn.heightAnchor.constraint(equalToConstant: 77),
+            resetAndCircleBtn.centerXAnchor.constraint(equalTo: circleView_2.centerXAnchor),
+            resetAndCircleBtn.centerYAnchor.constraint(equalTo: circleView_2.centerYAnchor)
         ]
         
         NSLayoutConstraint.activate(timeLblConstraints)
-        //NSLayoutConstraint.activate(resetAndCircleBtnConstraints)
         NSLayoutConstraint.activate(startStopBtnConstraints)
         NSLayoutConstraint.activate(circleView_1Constraints)
+        NSLayoutConstraint.activate(cirleView_2Constraints)
+        NSLayoutConstraint.activate(resetAndCircleBtnConstraints)
     }
 }

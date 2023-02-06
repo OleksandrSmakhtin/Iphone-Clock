@@ -75,7 +75,7 @@ class TimerVC: UIViewController {
         let view = UIView()
         view.frame = CGRect(x: 0, y: 0, width: 80, height: 80)
         view.layer.cornerRadius = view.frame.width / 2.0
-        view.backgroundColor = UIColor(red: 0.10, green: 0.42, blue: 0.17, alpha: 1.0)
+        view.backgroundColor = UIColor(named: "SpecialGreen")
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -110,8 +110,8 @@ class TimerVC: UIViewController {
         let button = UIButton()
         button.setTitle("Старт", for: .normal)
         button.frame = CGRect(x: 0, y: 0, width: 77, height: 77)
-        button.backgroundColor = UIColor(red: 0.10, green: 0.42, blue: 0.17, alpha: 0.5)
-        button.setTitleColor(.green, for: .normal)
+        button.backgroundColor = UIColor(named: "SpecialGreen")
+        button.setTitleColor(.systemGreen, for: .normal)
         // action
         button.addTarget(self, action: #selector(startPauseAction), for: .touchUpInside)
         //dynamic round corner radius
@@ -228,8 +228,8 @@ class TimerVC: UIViewController {
             timePicker.isHidden = true
             timeLbl.isHidden = false
             // ui changes
-            circleView_1.backgroundColor = UIColor(red: 0.51, green: 0.32, blue: 0.20, alpha: 0.255)
-            startPauseBtn.backgroundColor = UIColor(red: 0.51, green: 0.32, blue: 0.20, alpha: 0.255)
+            circleView_1.backgroundColor = UIColor(named: "SpecialYellow")
+            startPauseBtn.backgroundColor = UIColor(named: "SpecialYellow")
             startPauseBtn.setTitleColor(.systemOrange, for: .normal)
             startPauseBtn.setTitle("Пауза", for: .normal)
             cancelBtn.setTitleColor(.white, for: .normal)
@@ -237,15 +237,15 @@ class TimerVC: UIViewController {
         case "Пауза":
             timer.invalidate()
             startPauseBtn.setTitle("Далі", for: .normal)
-            circleView_1.backgroundColor = UIColor(red: 0.10, green: 0.42, blue: 0.17, alpha: 0.5)
-            startPauseBtn.backgroundColor = UIColor(red: 0.10, green: 0.42, blue: 0.17, alpha: 0.5)
-            startPauseBtn.setTitleColor(.green, for: .normal)
+            circleView_1.backgroundColor = UIColor(named: "SpecialGreen")
+            startPauseBtn.backgroundColor = UIColor(named: "SpecialGreen")
+            startPauseBtn.setTitleColor(.systemGreen, for: .normal)
         case "Далі":
             
             timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(countDownAction), userInfo: nil, repeats: true)
             
-            circleView_1.backgroundColor = UIColor(red: 0.51, green: 0.32, blue: 0.20, alpha: 0.255)
-            startPauseBtn.backgroundColor = UIColor(red: 0.51, green: 0.32, blue: 0.20, alpha: 0.255)
+            circleView_1.backgroundColor = UIColor(named: "SpecialYellow")
+            startPauseBtn.backgroundColor = UIColor(named: "SpecialYellow")
             startPauseBtn.setTitleColor(.systemOrange, for: .normal)
             startPauseBtn.setTitle("Пауза", for: .normal)
             cancelBtn.setTitleColor(.white, for: .normal)
@@ -266,9 +266,9 @@ class TimerVC: UIViewController {
         timeLbl.isHidden = true
         timePicker.isHidden = false
         startPauseBtn.setTitle("Старт", for: .normal)
-        circleView_1.backgroundColor = UIColor(red: 0.10, green: 0.42, blue: 0.17, alpha: 0.5)
-        startPauseBtn.backgroundColor = UIColor(red: 0.10, green: 0.42, blue: 0.17, alpha: 0.5)
-        startPauseBtn.setTitleColor(.green, for: .normal)
+        circleView_1.backgroundColor = UIColor(named: "SpecialGreen")
+        startPauseBtn.backgroundColor = UIColor(named: "SpecialGreen")
+        startPauseBtn.setTitleColor(.systemGreen, for: .normal)
         
     }
     
@@ -343,7 +343,7 @@ class TimerVC: UIViewController {
             circleView_2.widthAnchor.constraint(equalToConstant: 80),
             circleView_2.heightAnchor.constraint(equalToConstant: 80)
         ]
-        let cancelBtnConstrains = [
+        let cancelBtnConstraints = [
             cancelBtn.widthAnchor.constraint(equalToConstant: 77),
             cancelBtn.heightAnchor.constraint(equalToConstant: 77),
             cancelBtn.centerXAnchor.constraint(equalTo: circleView_2.centerXAnchor),
@@ -372,7 +372,7 @@ class TimerVC: UIViewController {
         NSLayoutConstraint.activate(startStopBtnConstraints)
         NSLayoutConstraint.activate(circleView_1Constraints)
         // activate cirlce view 2
-        NSLayoutConstraint.activate(cancelBtnConstrains)
+        NSLayoutConstraint.activate(cancelBtnConstraints)
         NSLayoutConstraint.activate(cirleView_2Constraints)
         // activate time lbl
         NSLayoutConstraint.activate(timeLblConstraints)
