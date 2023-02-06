@@ -11,7 +11,7 @@ class StopWatchVC: UIViewController {
     
     //MARK: - Array
     private var circles = [Circle]()
-    
+    private var circlesCount = 0
     
     //MARK: - Timer
     private var timer = Timer()
@@ -97,7 +97,8 @@ class StopWatchVC: UIViewController {
         case "Старт":
             
             if circles.count == 0 {
-                let model = Circle(circle: 1, time: "00:00,00")
+                circlesCount += 1
+                let model = Circle(circle: circlesCount, time: "00:00,00")
                 circles.append(model)
                 print("ADDED")
                 circlesTable.reloadData()
@@ -143,7 +144,19 @@ class StopWatchVC: UIViewController {
         
         switch title {
         case "Круг":
-            print("Circle")
+            
+            circlesCount += 1
+            
+            
+            
+            let model = Circle(circle: circlesCount, time: "")
+            circles.append(model)
+            
+//                circlesTable.beginUpdates()
+//                circlesTable.moveRow(at: IndexPath(row: circles.count - 1, section: 0), to: IndexPath(row: 0, section: 0))
+//                circlesTable.endUpdates()
+            
+            
         case "Скинути":
             // ui changes
             resetAndCircleBtn.setTitle("Круг", for: .normal)
@@ -162,9 +175,7 @@ class StopWatchVC: UIViewController {
     }
     
     @objc private func timerAction() {
-            
-            
-        //circlesTable.reloadData()
+                        
         let time = convertTimeToString()
             
         guard var model = circles.last else { return }
@@ -291,17 +302,12 @@ extension StopWatchVC: UITableViewDelegate, UITableViewDataSource {
         return circles.count
     }
     
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CircleTableCell.identifier) as? CircleTableCell
-        else {
-            print("Else top")
-            return UITableViewCell()
-        }
+        else { return UITableViewCell() }
         
         let model = circles[indexPath.row]
-        
-        print(model.circle)
-        print(model.time)
         
         cell.configure(with: model)
         
@@ -311,5 +317,6 @@ extension StopWatchVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 40
     }
+    
     
 }

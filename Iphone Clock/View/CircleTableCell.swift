@@ -69,7 +69,6 @@ class CircleTableCell: UITableViewCell {
     
     //MARK: - configure
     public func configure(with model: Circle) {
-        print(model)
         circleLbl.text = "Круг \(model.circle)"
         timeLbl.text = model.time
     }
