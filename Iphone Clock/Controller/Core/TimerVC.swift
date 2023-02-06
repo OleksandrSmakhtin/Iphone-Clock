@@ -160,12 +160,6 @@ class TimerVC: UIViewController {
 
     }
     
-    //MARK: - viewDidLoyoutSubviews
-//    override func viewDidLayoutSubviews() {
-//        super.viewDidLayoutSubviews()
-//        settingsTable.frame = grayView.bounds
-//    }
-    
     //MARK: - Convert to seconds
     private func convertToSeconds(hours: Int, minutes: Int, seconds: Int) -> Int {
         
@@ -368,14 +362,6 @@ class TimerVC: UIViewController {
             settingsTable.heightAnchor.constraint(equalToConstant: CGFloat(settings.count * 50)),
             settingsTable.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
         ]
-        
-        // gray view constraints
-//        let grayViewConstraints = [
-//            grayView.topAnchor.constraint(equalTo: startPauseBtn.bottomAnchor, constant: 30),
-//            grayView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-//            grayView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-//            grayView.heightAnchor.constraint(equalToConstant: 50)
-//        ]
         
         // activate time picker constraints
         NSLayoutConstraint.activate(timePickerConstraints)

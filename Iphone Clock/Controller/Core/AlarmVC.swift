@@ -157,6 +157,16 @@ extension AlarmVC: UITableViewDelegate, UITableViewDataSource {
         case .delete:
             self.alarms.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
+            
+            
+            // using dispatch queue to set editing mode to false after all deleting proccesses will end
+            if self.alarms.count == 0 {
+                DispatchQueue.main.async {
+                    self.alarmTable.isEditing = false
+                    self.navigationItem.leftBarButtonItem?.title = "Корегувати"
+                }
+            }
+            
         default:
             return
         }

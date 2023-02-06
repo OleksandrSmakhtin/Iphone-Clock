@@ -13,9 +13,12 @@ protocol SetAlarmDelegate {
 
 class SetAlarmVC: UIViewController {
     
-    //MARK: - Arrays
+    //MARK: - Data
     private let allHours = AlarmData.shared.hours()
     private let allMinutes = AlarmData.shared.minutes()
+    
+    private let settings = SettingsData.shared.getAlarmSettings()
+    
     
     
     //MARK: - Delegate
@@ -24,7 +27,7 @@ class SetAlarmVC: UIViewController {
     //MARK: - UI objects
     private let cancelBtn: UIButton = {
         let button = UIButton()
-        button.setTitle("Скачувати", for: .normal)
+        button.setTitle("Скасувати", for: .normal)
         button.setTitleColor(.systemOrange, for: .normal)
         button.addTarget(self, action: #selector(cancleAction), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -53,6 +56,19 @@ class SetAlarmVC: UIViewController {
         return picker
     }()
     
+    private let settingsTable: UITableView = {
+        let table = UITableView()
+        table.layer.backgroundColor = UIColor.clear.cgColor
+        table.isScrollEnabled = false
+        //table.separatorStyle = .none
+        table.showsVerticalScrollIndicator = false
+        table.backgroundColor = .systemGray5
+        table.layer.cornerRadius = 10
+        table.translatesAutoresizingMaskIntoConstraints = false
+        table.register(SettingsTableCell.self, forCellReuseIdentifier: SettingsTableCell.identifier)
+        return table
+    }()
+    
     
     //MARK: - viewDidLoad
     override func viewDidLoad() {
@@ -64,7 +80,8 @@ class SetAlarmVC: UIViewController {
         // apply constraints
         applyConstraints()
         // apply delegates
-        applyDelegates()
+        applyPickerViewDelegates()
+        applyTableViewDelegates()
 
     }
     
@@ -75,6 +92,7 @@ class SetAlarmVC: UIViewController {
         view.addSubview(saveBtn)
         view.addSubview(addingLbl)
         view.addSubview(timePicker)
+        view.addSubview(settingsTable)
     }
     
     //MARK: - Actions
@@ -120,10 +138,18 @@ class SetAlarmVC: UIViewController {
             timePicker.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
         ]
         
+        let settingsTableConstraints = [
+            settingsTable.topAnchor.constraint(equalTo: timePicker.bottomAnchor, constant: 30),
+            settingsTable.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            settingsTable.heightAnchor.constraint(equalToConstant: CGFloat(settings.count * 50)),
+            settingsTable.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+        ]
+        
         NSLayoutConstraint.activate(cancelBtnConstraints)
         NSLayoutConstraint.activate(addingLblConstraints)
         NSLayoutConstraint.activate(saveBtnConstraints)
         NSLayoutConstraint.activate(timePickerConstraints)
+        NSLayoutConstraint.activate(settingsTableConstraints)
         
     }
  
@@ -135,7 +161,7 @@ class SetAlarmVC: UIViewController {
 extension SetAlarmVC: UIPickerViewDelegate, UIPickerViewDataSource {
     
         
-    private func applyDelegates() {
+    private func applyPickerViewDelegates() {
         timePicker.delegate = self
         timePicker.dataSource = self
     }
@@ -170,6 +196,39 @@ extension SetAlarmVC: UIPickerViewDelegate, UIPickerViewDataSource {
             }
             
         }
+    }
+    
+}
+
+
+//MARK: - UITableViewDelegate & DataSource
+extension SetAlarmVC: UITableViewDelegate, UITableViewDataSource {
+    
+    private func applyTableViewDelegates() {
+        settingsTable.delegate = self
+        settingsTable.dataSource = self
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return settings.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: SettingsTableCell.identifier) as? SettingsTableCell else { return UITableViewCell()}
+        
+        let model = settings[indexPath.row]
+        if model.accesorry {
+            cell.accessoryType = .disclosureIndicator
+        }
+        
+        cell.configure(with: model)
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 50
     }
     
 }

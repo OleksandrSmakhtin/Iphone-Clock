@@ -29,6 +29,9 @@ class SettingsTableCell: UITableViewCell {
     
     private let textField: UITextField = {
         let textField = UITextField()
+        textField.textAlignment = .right
+        textField.tintColor = .systemOrange
+        textField.clearButtonMode = .whileEditing
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
@@ -68,8 +71,8 @@ class SettingsTableCell: UITableViewCell {
     private func addSubviews() {
         contentView.addSubview(titleLbl)
         contentView.addSubview(propertyLbl)
-        //contentView.addSubview(textField)
-        //contentView.addSubview(propetySwitch)
+        contentView.addSubview(textField)
+        contentView.addSubview(propertySwitch)
 
         
     }
@@ -82,13 +85,27 @@ class SettingsTableCell: UITableViewCell {
             titleLbl.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             titleLbl.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20)
         ]
+        
         let propertyLblConstraints = [
             propertyLbl.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             propertyLbl.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10)
         ]
         
+        let textFieldConstraints = [
+            textField.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            textField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            textField.leadingAnchor.constraint(equalTo: titleLbl.trailingAnchor, constant: 10)
+        ]
+        
+        let propertySwitchConstraints = [
+            propertySwitch.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            propertySwitch.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+        ]
+        
         NSLayoutConstraint.activate(titleLblConstraints)
         NSLayoutConstraint.activate(propertyLblConstraints)
+        NSLayoutConstraint.activate(textFieldConstraints)
+        NSLayoutConstraint.activate(propertySwitchConstraints)
         
     }
     
@@ -101,14 +118,31 @@ class SettingsTableCell: UITableViewCell {
         switch model.property {
         case .label:
             propertyLbl.text = model.propertyValue
+            propertyLbl.isHidden = false
+            textField.isHidden = true
+            propertySwitch.isHidden = true
+            
         case .textField:
             textField.placeholder = model.propertyValue
+            propertyLbl.isHidden = true
+            textField.isHidden = false
+            propertySwitch.isHidden = true
+            
         case .uiSwitch:
             if model.propertyValue == "on" {
                 propertySwitch.isOn = true
+                
+                propertyLbl.isHidden = true
+                textField.isHidden = true
+                propertySwitch.isHidden = false
             } else {
                 propertySwitch.isOn = false
+                
+                propertyLbl.isHidden = true
+                textField.isHidden = true
+                propertySwitch.isHidden = false
             }
+            
         }
         
         
