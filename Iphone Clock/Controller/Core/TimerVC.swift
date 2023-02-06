@@ -19,7 +19,7 @@ class TimerVC: UIViewController {
     //MARK: - Timer
     private var timer = Timer()
     private var countDown = 0
-    private var timerCounting = false
+    //private var timerCounting = false
     
     
     //MARK: - UI time picker
@@ -122,13 +122,13 @@ class TimerVC: UIViewController {
         return button
     }()
     //MARK: - UI gray view
-    private let grayView: UIView = {
-        let view = UIView()
-        view.layer.cornerRadius = 10
-        view.backgroundColor = .systemGray6
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
+//    private let grayView: UIView = {
+//        let view = UIView()
+//        view.layer.cornerRadius = 10
+//        view.backgroundColor = .systemGray6
+//        view.translatesAutoresizingMaskIntoConstraints = false
+//        return view
+//    }()
     //MARK: - UI settings table
     private let settingsTable: UITableView = {
         let table = UITableView()
@@ -198,6 +198,7 @@ class TimerVC: UIViewController {
             countDown -= 1
             makeFullStringTime(seconds: countDown)
         }
+        
     }
     
     //MARK: - Btn actions

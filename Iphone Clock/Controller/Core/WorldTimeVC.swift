@@ -204,6 +204,7 @@ extension WorldTimeVC: UITableViewDelegate, UITableViewDataSource {
             
             // using dispatch queue to set editing mode to false after all deleting proccesses will end
             if self.times.count == 0 {
+                
                 DispatchQueue.main.async {
                     self.worldTimeTable.isEditing = false
                     self.navigationItem.leftBarButtonItem?.title = "Корегувати"

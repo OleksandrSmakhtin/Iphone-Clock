@@ -218,6 +218,7 @@ extension SetAlarmVC: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SettingsTableCell.identifier) as? SettingsTableCell else { return UITableViewCell()}
         
         let model = settings[indexPath.row]
+        
         if model.accesorry {
             cell.accessoryType = .disclosureIndicator
         }
