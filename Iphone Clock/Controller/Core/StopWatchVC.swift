@@ -12,7 +12,9 @@ class StopWatchVC: UIViewController {
     
     //MARK: - Timer
     private var timer = Timer()
-    private var count = 0.0
+    private var min = 0
+    private var sec = 0
+    private var milisec = 0
 
     //MARK: - UI objects
     private let timeLbl: UILabel = {
@@ -108,6 +110,8 @@ class StopWatchVC: UIViewController {
             startStopBtn.backgroundColor = UIColor(named: "SpecialGreen")
             startStopBtn.setTitleColor(.systemGreen, for: .normal)
             resetAndCircleBtn.setTitle("Скинути", for: .normal)
+            // logic
+            timer.invalidate()
             
         default:
             return
@@ -115,7 +119,6 @@ class StopWatchVC: UIViewController {
     }
     
     @objc private func resetAndCircleAction() {
-        //guard resetAndCircleBtn.backgroundColor != .systemGray6 else { return }
         guard let title = resetAndCircleBtn.title(for: .normal) else { return }
         
         switch title {
@@ -128,6 +131,12 @@ class StopWatchVC: UIViewController {
             resetAndCircleBtn.backgroundColor = .systemGray6
             circleView_2.backgroundColor = .systemGray6
             
+            // logic
+            timeLbl.text = "00:00,00"
+            min = 0
+            sec = 0
+            milisec = 0
+            
             
         default:
             return
@@ -135,32 +144,12 @@ class StopWatchVC: UIViewController {
     }
     
     @objc private func timerAction() {
-//        count += 0.1
-//        convertTimeToString()
-//        print(count)
         convertTimeToString()
         milisec += 1
     }
     
-    var min = 0
-    var sec = 0
-    var milisec = 0
     
     private func convertTimeToString() {
-//        var timeString = ""
-//        timeString += String(format: "%02d", (count % 3600) / 60)
-//        timeString += ":"
-//        timeString += String(format: "%02d", (count % 3600) % 60)
-//        let second = (count % 3600) % 60
-//        print("Seconds: \(second)")
-//        let milisecond = second / 60
-//        print("MiliSeconds: \(milisecond)")
-//        timeString += ","
-//        timeString += String(format: "%02d", ((count % 3600) % 60) / 60)
-//        //timeString += ","
-//        print(timeString)
-        
-        
         // works
         if milisec > 99 {
             milisec = 0
@@ -171,8 +160,6 @@ class StopWatchVC: UIViewController {
             }
         }
         
-        
-        
         var timeString = ""
         timeString += String(format: "%02d", min)
         timeString += ":"
@@ -180,7 +167,6 @@ class StopWatchVC: UIViewController {
         timeString += ","
         timeString += String(format: "%02d", milisec)
         
-        //timeString += String(format: "%02d", ((count % 3600) % 60) / 100)
         timeLbl.text = timeString
     }
     
@@ -205,7 +191,6 @@ class StopWatchVC: UIViewController {
         view.addSubview(circleView_1)
         circleView_2.addSubview(resetAndCircleBtn)
         view.addSubview(circleView_2)
-        //view.addSubview(startStopBtn)
     }
 
     //MARK: - Apply constraints
