@@ -92,8 +92,18 @@ class AlarmTableViewCell: UITableViewCell {
     }
     
     //MARK: - Configure cell
-    public func configure(with model: Alarm) {
-        timeLbl.text = "\(model.hours):\(model.minutes)"
+//    public func configure(with model: Alarm) {
+//        timeLbl.text = "\(model.hours):\(model.minutes)"
+//    }
+    
+    public func configure(with model: AlarmCoreData) {
+        
+        guard let hours = model.hours else { return }
+        guard let minutes = model.minutes else { return }
+        
+        
+        //timeLbl.text = "\(model.hours):\(model.minutes)"
+        timeLbl.text = "\(hours):\(minutes)"
     }
     
     //MARK: - is Switch hidden

@@ -11,7 +11,8 @@ class AlarmVC: UIViewController {
     
     let sections = ["Сон|Пробудження","Інше"]
     
-    var alarms = [Alarm]()
+    //var alarms = [Alarm]()
+    private var coreAlarms = [AlarmCoreData]()
     
     //MARK: - UI objects
     private let alarmTable: UITableView = {
@@ -34,6 +35,8 @@ class AlarmVC: UIViewController {
         addSubviews()
         // apply delegates
         applyDelegates()
+        // fetch core data
+        fetchAlarms()
     }
     
     //MARK: - viedDidLayoutSubviews
@@ -73,7 +76,8 @@ class AlarmVC: UIViewController {
     
     // editing mode
     @objc private func editingMode() {
-        guard alarms.count != 0 else { return }
+        //guard alarms.count != 0 else { return }
+        guard coreAlarms.count != 0 else { return }
         
         if alarmTable.isEditing {
             alarmTable.isEditing = false
@@ -93,8 +97,39 @@ class AlarmVC: UIViewController {
 extension AlarmVC: SetAlarmDelegate {
     
     func getAlarm(alarm: Alarm) {
-        alarms.append(alarm)
-        alarmTable.reloadData()
+        //alarms.append(alarm)
+        DataPersistenceManager.shared.addAlarm(with: alarm)
+        fetchAlarms()
+        //alarmTable.reloadData()
+    }
+    
+    //MARK: - Fetch core data
+    func fetchAlarms() {
+        DataPersistenceManager.shared.fetchAlarms { result in
+            switch result {
+            case .success(let alarms):
+                self.coreAlarms = alarms
+                DispatchQueue.main.async {
+                    self.alarmTable.reloadData()
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    //MARK: - Delete data
+    func deleteData(model: AlarmCoreData) {
+        DataPersistenceManager.shared.deleteAlarm(with: model) { result in
+            
+            switch result {
+            case .success():
+                print("Deleted successfully")
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+            
+        }
     }
     
     
@@ -131,7 +166,7 @@ extension AlarmVC: UITableViewDelegate, UITableViewDataSource {
         if section == 0 {
             return 1
         } else {
-            return alarms.count
+            return /*alarms.count*/ coreAlarms.count
         }
     }
     
@@ -155,12 +190,18 @@ extension AlarmVC: UITableViewDelegate, UITableViewDataSource {
         
         switch editingStyle {
         case .delete:
-            self.alarms.remove(at: indexPath.row)
+            
+            deleteData(model: coreAlarms[indexPath.row])
+            
+            self.coreAlarms.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
+            
+//            self.alarms.remove(at: indexPath.row)
+//            tableView.deleteRows(at: [indexPath], with: .fade)
             
             
             // using dispatch queue to set editing mode to false after all deleting proccesses will end
-            if self.alarms.count == 0 {
+            if /*self.alarms.count*/ self.coreAlarms.count == 0 {
                 DispatchQueue.main.async {
                     self.alarmTable.isEditing = false
                     self.navigationItem.leftBarButtonItem?.title = "Корегувати"
@@ -188,7 +229,8 @@ extension AlarmVC: UITableViewDelegate, UITableViewDataSource {
 
             guard let cell = tableView.dequeueReusableCell(withIdentifier: AlarmTableViewCell.identifier) as? AlarmTableViewCell else { return UITableViewCell()}
 
-            let model = alarms[indexPath.row]
+            //let model = alarms[indexPath.row]
+            let model = coreAlarms[indexPath.row]
             
             
             

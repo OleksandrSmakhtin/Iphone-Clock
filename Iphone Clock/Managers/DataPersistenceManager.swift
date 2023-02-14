@@ -36,6 +36,9 @@ class DataPersistenceManager {
         }
     }
     
+    
+    
+    
     //MARK: - Fetch World Time
     func fetchWorldTimes(completion: @escaping (Result<[WorldTimeCoreData], Error>) -> Void) {
         
@@ -49,6 +52,9 @@ class DataPersistenceManager {
             completion(.failure(error))
         }
     }
+    
+    
+    
     
     //MARK: - Delete World Time
     func deleteWorldTime(with model: WorldTimeCoreData, completion: @escaping (Result<Void, Error>) -> Void) {
@@ -68,7 +74,56 @@ class DataPersistenceManager {
     
     
     
+    //MARK: - Add Alarm
+    func addAlarm(with model: Alarm) {
+        
+        let alarm = AlarmCoreData(context: context)
+        
+        alarm.hours = model.hours
+        alarm.minutes = model.minutes
+        alarm.isOn = model.isOn
+        
+        do {
+            try context.save()
+            
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
     
+    
+    
+    
+    //MARK: - Fetch Alarms
+    func fetchAlarms(completion: @escaping (Result<[AlarmCoreData], Error>) -> Void) {
+        
+        let request = AlarmCoreData.fetchRequest()
+        
+        do {
+            let alarms = try context.fetch(request)
+            completion(.success(alarms))
+            
+        } catch {
+            completion(.failure(error))
+        }
+    }
+    
+    
+    
+    
+    //MARK: - Delete Alarm
+    func deleteAlarm(with model: AlarmCoreData, completion: @escaping (Result<Void, Error>) -> Void) {
+        
+        context.delete(model)
+        
+        do {
+            try context.save()
+            completion(.success(()))
+        } catch {
+            completion(.failure(error))
+        }
+        
+    }
     
     
     
