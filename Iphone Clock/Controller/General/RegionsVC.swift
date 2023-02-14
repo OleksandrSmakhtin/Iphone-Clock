@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 protocol UpdateTimeDelegate {
     func updateTableTime(time: WorldTime)
 }

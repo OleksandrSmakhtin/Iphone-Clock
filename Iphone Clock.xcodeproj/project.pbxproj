@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		442849B5299BEF170027FB03 /* DataPersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442849B4299BEF170027FB03 /* DataPersistenceManager.swift */; };
 		44347796298AA5F00017E389 /* WorldTimeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44347795298AA5EF0017E389 /* WorldTimeData.swift */; };
 		44347798298AAA4C0017E389 /* RegionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44347797298AAA4C0017E389 /* RegionTableViewCell.swift */; };
 		4441E2EB298950CD00D6A3F1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4441E2EA298950CD00D6A3F1 /* AppDelegate.swift */; };
@@ -37,6 +38,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		442849B4299BEF170027FB03 /* DataPersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPersistenceManager.swift; sourceTree = "<group>"; };
 		44347795298AA5EF0017E389 /* WorldTimeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldTimeData.swift; sourceTree = "<group>"; };
 		44347797298AAA4C0017E389 /* RegionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionTableViewCell.swift; sourceTree = "<group>"; };
 		4441E2E7298950CD00D6A3F1 /* Iphone Clock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Iphone Clock.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -79,6 +81,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		442849B3299BEEF00027FB03 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				442849B4299BEF170027FB03 /* DataPersistenceManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
 		44347794298AA5D20017E389 /* Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -109,6 +119,7 @@
 		4441E2E9298950CD00D6A3F1 /* Iphone Clock */ = {
 			isa = PBXGroup;
 			children = (
+				442849B3299BEEF00027FB03 /* Managers */,
 				44347794298AA5D20017E389 /* Data */,
 				4441E30A2989589000D6A3F1 /* Model */,
 				4441E3092989588900D6A3F1 /* View */,
@@ -271,6 +282,7 @@
 				4441E31029896F4100D6A3F1 /* RegionsVC.swift in Sources */,
 				446A543C299BEB2B0020957C /* IphoneClockModel.xcdatamodeld in Sources */,
 				44F5A2772991A85900D5AE15 /* Circle.swift in Sources */,
+				442849B5299BEF170027FB03 /* DataPersistenceManager.swift in Sources */,
 				4441E3052989532300D6A3F1 /* StopWatchVC.swift in Sources */,
 				4441E2FF2989518500D6A3F1 /* TabBarC.swift in Sources */,
 			);

@@ -6,12 +6,17 @@
 //
 
 import UIKit
+import CoreData
 
 
 class WorldTimeVC: UIViewController {
     
     //MARK: - array of time zones
-    var times = [WorldTime]()
+    //var times = [WorldTime]()
+    
+    
+    //MARK: - Core Data Array
+    private var worldTimes = [WorldTimeCoreData]()
 
     
     //MARK: - UI objects
@@ -53,6 +58,9 @@ class WorldTimeVC: UIViewController {
         
         // apply delegates
         applyDelegates()
+        
+        // fetch saved time
+        fetchTime()
         
     }
     
@@ -103,7 +111,8 @@ class WorldTimeVC: UIViewController {
     // editing mode
     @objc private func editingMode() {
         
-        guard times.count != 0 else { return }
+        //guard times.count != 0 else { return }
+        guard worldTimes.count != 0 else { return }
         
         if worldTimeTable.isEditing {
             worldTimeTable.isEditing = false
@@ -123,10 +132,42 @@ class WorldTimeVC: UIViewController {
 extension WorldTimeVC: UpdateTimeDelegate {
     
     func updateTableTime(time: WorldTime) {
-        times.append(time)
-        worldTimeTable.reloadData()
+        
+        DataPersistenceManager.shared.addWorldTime(with: time)
+        fetchTime()
+        //times.append(time)
+        //worldTimeTable.reloadData()
     }
     
+    //MARK: - fetch core data
+    func fetchTime() {
+        DataPersistenceManager.shared.fetchWorldTimes { result in
+            
+            switch result {
+            case .success(let times):
+                self.worldTimes = times
+                DispatchQueue.main.async {
+                    self.worldTimeTable.reloadData()
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    //MARK: - Delete data
+    func deleteData(model: WorldTimeCoreData) {
+        DataPersistenceManager.shared.deleteWorldTime(with: model) { result in
+            
+            switch result {
+            case .success():
+                print("Deleted successfully")
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+            
+        }
+    }
 }
 
 //MARK: - UITableViewDelegate & DataSource
@@ -142,7 +183,7 @@ extension WorldTimeVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         
-        if times.count == 0 {
+        if /*times.count*/worldTimes.count == 0 {
             worldTimeTable.isHidden = true
             noTimeLbl.isHidden = false
         } else {
@@ -151,7 +192,7 @@ extension WorldTimeVC: UITableViewDelegate, UITableViewDataSource {
         }
         
         
-        return times.count
+        return /*times.count*/ worldTimes.count
     }
     
     //cell for row at
@@ -159,7 +200,8 @@ extension WorldTimeVC: UITableViewDelegate, UITableViewDataSource {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: WorldTimeTableCell.identifier) as? WorldTimeTableCell else { return UITableViewCell()}
         
-        let model = times[indexPath.row]
+        //let model = times[indexPath.row]
+        let model = worldTimes[indexPath.row]
         
         // hide time lbl when editing mode is on
         if tableView.isEditing {
@@ -185,8 +227,8 @@ extension WorldTimeVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         
         // swap values from old index to new index
-        times.swapAt(sourceIndexPath.row, destinationIndexPath.row)
-        
+        //times.swapAt(sourceIndexPath.row, destinationIndexPath.row)
+        worldTimes.swapAt(sourceIndexPath.row, destinationIndexPath.row)        
     }
     
     // title for deliting rows
@@ -199,11 +241,18 @@ extension WorldTimeVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
         if editingStyle == .delete {
-            self.times.remove(at: indexPath.row)
+            
+            deleteData(model: worldTimes[indexPath.row])
+            
+            
+            self.worldTimes.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
+                
+//            self.times.remove(at: indexPath.row)
+//            tableView.deleteRows(at: [indexPath], with: .fade)
             
             // using dispatch queue to set editing mode to false after all deleting proccesses will end
-            if self.times.count == 0 {
+            if /*self.times.count*/ self.worldTimes.count == 0 {
                 
                 DispatchQueue.main.async {
                     self.worldTimeTable.isEditing = false

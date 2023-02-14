@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreData
 
 
 
@@ -103,7 +104,13 @@ class WorldTimeTableCell: UITableViewCell {
     }
     
     //MARK: - Configure cell
-    public func configure(with model: WorldTime) {
+//    public func configure(with model: WorldTime) {
+//        differenceLbl.text = model.difference
+//        cityLbl.text = model.city
+//        timeLbl.text = model.time
+//    }
+    
+    public func configure(with model: WorldTimeCoreData) {
         differenceLbl.text = model.difference
         cityLbl.text = model.city
         timeLbl.text = model.time
