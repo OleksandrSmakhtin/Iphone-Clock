@@ -71,7 +71,9 @@ class AlarmVC: UIViewController {
         let vc = SetAlarmVC()
         // apply delegate
         vc.delegate = self
-        showDetailViewController(vc, sender: self)
+        //UINavigationController(rootViewController: vc)
+        navigationController?.present(UINavigationController(rootViewController: vc), animated: true)
+        //showDetailViewController(vc, sender: self)
     }
     
     // editing mode

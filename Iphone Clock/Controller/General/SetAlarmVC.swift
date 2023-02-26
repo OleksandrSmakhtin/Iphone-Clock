@@ -75,6 +75,7 @@ class SetAlarmVC: UIViewController {
         super.viewDidLoad()
         // change bg
         view.backgroundColor = .systemBackground
+        configureNavBar()
         // add subviews
         addSubviews()
         // apply constraints
@@ -85,12 +86,24 @@ class SetAlarmVC: UIViewController {
 
     }
     
+    //MARK: - configure NavBar
+    private func configureNavBar() {
+        title = "Додавання"
+        navigationController?.navigationBar.prefersLargeTitles = false
+        navigationController?.navigationBar.tintColor = .systemOrange
+        
+        // left button
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Скасувати", style: .done, target: self, action: #selector(cancleAction))
+        // right button
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Зберегти", style: .done, target: self, action: #selector(saveAction))
+    }
+    
     
     //MARK: - add subviews
     private func addSubviews() {
-        view.addSubview(cancelBtn)
-        view.addSubview(saveBtn)
-        view.addSubview(addingLbl)
+        //view.addSubview(cancelBtn)
+        //view.addSubview(saveBtn)
+        //view.addSubview(addingLbl)
         view.addSubview(timePicker)
         view.addSubview(settingsTable)
     }
@@ -105,11 +118,13 @@ class SetAlarmVC: UIViewController {
         
         // send alarm to alarm vc with the help of delegation
         delegate?.getAlarm(alarm: model)
+        //navigationController?.popViewController(animated: true)
         dismiss(animated: true)
         print("\(hour):\(minute)")
     }
     
     @objc private func cancleAction() {
+        //navigationController?.popViewController(animated: true)
         dismiss(animated: true)
     }
     
@@ -117,23 +132,23 @@ class SetAlarmVC: UIViewController {
     //MARK: - apply constraints
     private func applyConstraints() {
         
-        let cancelBtnConstraints = [
-            cancelBtn.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
-            cancelBtn.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10)
-        ]
+//        let cancelBtnConstraints = [
+//            cancelBtn.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
+//            cancelBtn.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10)
+//        ]
         
-        let addingLblConstraints = [
-            addingLbl.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            addingLbl.centerYAnchor.constraint(equalTo: saveBtn.centerYAnchor)
-        ]
+//        let addingLblConstraints = [
+//            addingLbl.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+//            addingLbl.centerYAnchor.constraint(equalTo: saveBtn.centerYAnchor)
+//        ]
         
-        let saveBtnConstraints = [
-            saveBtn.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
-            saveBtn.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10)
-        ]
+//        let saveBtnConstraints = [
+//            saveBtn.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
+//            saveBtn.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10)
+//        ]
         
         let timePickerConstraints = [
-            timePicker.topAnchor.constraint(equalTo: addingLbl.bottomAnchor, constant: 20),
+            timePicker.topAnchor.constraint(equalTo: /*addingLbl.bottomAnchor*/ view.topAnchor, constant: 60),
             timePicker.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             timePicker.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
         ]
@@ -145,9 +160,9 @@ class SetAlarmVC: UIViewController {
             settingsTable.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
         ]
         
-        NSLayoutConstraint.activate(cancelBtnConstraints)
-        NSLayoutConstraint.activate(addingLblConstraints)
-        NSLayoutConstraint.activate(saveBtnConstraints)
+//        NSLayoutConstraint.activate(cancelBtnConstraints)
+//        NSLayoutConstraint.activate(addingLblConstraints)
+//        NSLayoutConstraint.activate(saveBtnConstraints)
         NSLayoutConstraint.activate(timePickerConstraints)
         NSLayoutConstraint.activate(settingsTableConstraints)
         
@@ -231,5 +246,16 @@ extension SetAlarmVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50
     }
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == 0 {
+            let vc = RepeatVC()
+            navigationController?.pushViewController(vc, animated: true)
+            //showDetailViewController(vc, sender: true)
+        }
+    }
+    
+    
     
 }
