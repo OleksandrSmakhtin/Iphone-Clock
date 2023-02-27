@@ -12,9 +12,17 @@ class RepeatData {
     //MARK: - Singleton
     static let shared = RepeatData()
     
-    func getRepeatData() -> [String] {
+    func getRepeatData() -> [Repeat] {
         
-        let repeats = ["Кожен понеділок", "Кожен вівторок", "Кожну середу", "Кожен четвер", "Кожну пʼятницю", "Кожну суботу", "Кожну неділю"]
+        let repeats = [
+            Repeat(title: "Кожен понеділок", shortcut: "Пн", isChosen: false),
+            Repeat(title: "Кожен вівторок", shortcut: "Вт", isChosen: false),
+            Repeat(title: "Кожну середу", shortcut: "Ср", isChosen: false),
+            Repeat(title: "Кожен четвер", shortcut: "Чт", isChosen: false),
+            Repeat(title: "Кожну пʼятницю", shortcut: "Пт", isChosen: false),
+            Repeat(title: "Кожну суботу", shortcut: "Сб", isChosen: false),
+            Repeat(title: "Кожну неділю", shortcut: "Нд", isChosen: false)
+        ]
         
         return repeats
     }

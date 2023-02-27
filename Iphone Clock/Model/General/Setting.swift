@@ -17,6 +17,6 @@ enum SettingsOptions {
 struct Setting {
     let title: String
     let property: SettingsOptions
-    let propertyValue: String
+    var propertyValue: String
     let accesorry: Bool
 }

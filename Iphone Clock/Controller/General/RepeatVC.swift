@@ -7,10 +7,17 @@
 
 import UIKit
 
+protocol RepeatDelegate {
+    func getChosenRepeats(repeats: [Repeat])
+}
+
 class RepeatVC: UIViewController {
     
+    //MARK: - Delegate
+    var delegate: RepeatDelegate?
+    
     //MARK: - Data
-    private let repeats = RepeatData.shared.getRepeatData()
+    private var repeats = RepeatData.shared.getRepeatData()
 
     //MARK: - UI objects
     private let repeatTable: UITableView = {
@@ -20,6 +27,7 @@ class RepeatVC: UIViewController {
         table.showsVerticalScrollIndicator = false
         table.backgroundColor = .systemGray5
         table.layer.cornerRadius = 10
+        table.tintColor = .systemOrange
         table.register(SettingsTableCell.self, forCellReuseIdentifier: SettingsTableCell.identifier)
         table.translatesAutoresizingMaskIntoConstraints = false
         return table
@@ -36,6 +44,20 @@ class RepeatVC: UIViewController {
         applyConstraints()
         // apply table delegates
         applyTableDelegates()
+    }
+    
+    //MARK: - viewWillDisappear
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        delegate?.getChosenRepeats(repeats: repeats)
+    }
+    
+    //MARK: - init with chosen repeats
+    public func configureWithChosenRepeats(repeats: [Repeat]?) {
+        guard let chosenResults = repeats else { return }
+        self.repeats = chosenResults
+        print(chosenResults)
+        repeatTable.reloadData()
     }
     
     
@@ -76,7 +98,13 @@ extension RepeatVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SettingsTableCell.identifier) as? SettingsTableCell else { return UITableViewCell()}
         
-        let title = repeats[indexPath.row]
+        let repeatItem = repeats[indexPath.row]
+        
+        if repeatItem.isChosen {
+            cell.accessoryType = .checkmark
+        }
+        
+        let title = repeatItem.title
         let model = Setting(title: title, property: .label, propertyValue: "", accesorry: false)
         
         cell.configure(with: model)
@@ -87,6 +115,24 @@ extension RepeatVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50
+    }
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let checkStatus = tableView.cellForRow(at: indexPath)?.accessoryType == .checkmark
+        
+        if checkStatus {
+            // checked case
+            tableView.cellForRow(at: indexPath)?.accessoryType = .none
+            repeats[indexPath.row].isChosen = false
+            
+        } else {
+            // unchecked case
+            tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+            repeats[indexPath.row].isChosen = true
+        }
+        
     }
     
 }

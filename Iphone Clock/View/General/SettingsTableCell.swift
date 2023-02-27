@@ -30,6 +30,8 @@ class SettingsTableCell: UITableViewCell {
     private let textField: UITextField = {
         let textField = UITextField()
         textField.textAlignment = .right
+        textField.autocorrectionType = .no
+        textField.textColor = .systemGray
         textField.tintColor = .systemOrange
         textField.clearButtonMode = .whileEditing
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -58,6 +60,9 @@ class SettingsTableCell: UITableViewCell {
         
         //apply constraints
         applyConstraints()
+        
+        // apply delegate
+        textField.delegate = self
                 
     }
     
@@ -148,4 +153,14 @@ class SettingsTableCell: UITableViewCell {
         
     }
 
+}
+
+
+//MARK: - UITextFieldDelegate
+extension SettingsTableCell: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        // disable actual action on textField
+        textField.resignFirstResponder()
+        return true
+    }
 }

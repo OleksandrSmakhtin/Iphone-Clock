@@ -17,9 +17,10 @@ class SetAlarmVC: UIViewController {
     private let allHours = AlarmData.shared.hours()
     private let allMinutes = AlarmData.shared.minutes()
     
-    private let settings = SettingsData.shared.getAlarmSettings()
+    private var settings = SettingsData.shared.getAlarmSettings()
     
-    
+    //MARK: - Data for settings VCs
+    var repeats: [Repeat]?
     
     //MARK: - Delegate
     var delegate: SetAlarmDelegate?
@@ -84,6 +85,11 @@ class SetAlarmVC: UIViewController {
         applyPickerViewDelegates()
         applyTableViewDelegates()
 
+    }
+    
+    //MARK: - end editing when tuoched
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
     
     //MARK: - configure NavBar
@@ -249,13 +255,55 @@ extension SetAlarmVC: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
         if indexPath.row == 0 {
             let vc = RepeatVC()
+            vc.configureWithChosenRepeats(repeats: repeats)
+            vc.delegate = self
             navigationController?.pushViewController(vc, animated: true)
             //showDetailViewController(vc, sender: true)
         }
     }
-    
-    
-    
+}
+
+
+//MARK: - RepeatDelegate
+extension SetAlarmVC: RepeatDelegate {
+    func getChosenRepeats(repeats: [Repeat]) {
+        
+        
+        
+        self.repeats = repeats
+        
+        // find chosen shortcuts
+        var shortcuts = [String]()
+        for item in repeats {
+            if item.isChosen {
+                shortcuts.append(item.shortcut)
+            }
+        }
+        
+        // show chosen shortcuts
+        if !shortcuts.isEmpty {
+            let label = shortcuts.joined(separator: ", ")
+            print("shortcuts.count = \(shortcuts.count)")
+            settings[0].propertyValue = label
+            let indexPath = IndexPath(row: 0, section: 0)
+            settingsTable.reloadRows(at: [indexPath], with: .none)
+        } else {
+            settings[0].propertyValue = "Ніколи"
+            let indexPath = IndexPath(row: 0, section: 0)
+            settingsTable.reloadRows(at: [indexPath], with: .none)
+        }
+        
+        // if all shortcuts were chosen set every day mark
+        if shortcuts.count > 6 {
+            settings[0].propertyValue = "Кожен день"
+            let indexPath = IndexPath(row: 0, section: 0)
+            settingsTable.reloadRows(at: [indexPath], with: .none)
+        }
+        
+        
+    }
 }
