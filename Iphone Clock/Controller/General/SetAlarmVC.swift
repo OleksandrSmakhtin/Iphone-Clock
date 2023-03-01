@@ -264,6 +264,11 @@ extension SetAlarmVC: UITableViewDelegate, UITableViewDataSource {
             navigationController?.pushViewController(vc, animated: true)
             //showDetailViewController(vc, sender: true)
         }
+        
+        if indexPath.row == 2 {
+            let vc = MelodyVC()
+            navigationController?.pushViewController(vc, animated: true)
+        }
     }
 }
 
